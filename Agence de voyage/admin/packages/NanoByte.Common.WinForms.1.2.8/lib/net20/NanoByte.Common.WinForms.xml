@@ -1,0 +1,1657 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NanoByte.Common.WinForms</name>
+    </assembly>
+    <members>
+        <member name="T:NanoByte.Common.AsyncFormWrapper`1">
+            <summary>
+            Lazily starts a separate thread with a message loop for a <see cref="T:System.Windows.Forms.Form"/>.
+            </summary>
+            <typeparam name="T">The type of the form to wrap.</typeparam>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.#ctor(System.Func{`0})">
+            <summary>
+            Creates a new asynchronous form wrapper.
+            </summary>
+            <param name="init">Callback that creates an instance of the form for the message loop.</param>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.Post(System.Action{`0})">
+            <summary>
+            Starts the message loop if it is not running yet and executes an action on its thread waiting for it to complete.
+            </summary>
+            <param name="action">The action to execute; gets passed the <typeparamref name="T"/> instance.</param>
+            <exception cref="T:System.OperationCanceledException">The form was closed.</exception>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.Post``1(System.Func{`0,``0})">
+            <summary>
+            Starts the message loop if it is not running yet and executes an action on its thread waiting for it to complete.
+            </summary>
+            <typeparam name="TResult">The type of the result returned by <paramref name="action"/>.</typeparam>
+            <param name="action">A delegate that is passed the <see cref="T:System.Windows.Forms.Form"/> instance and returns a result.</param>
+            <returns>The result returned by <paramref name="action"/>.</returns>
+            <exception cref="T:System.OperationCanceledException">The form was closed.</exception>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.Send(System.Action{`0})">
+            <summary>
+            Starts the message loop if it is not running yet and executes an action on its thread without waiting for it to complete.
+            </summary>
+            <param name="action">The action to execute; gets passed the <typeparamref name="T"/> instance.</param>
+            <exception cref="T:System.OperationCanceledException">The form was closed.</exception>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.SendLow(System.Action{`0})">
+            <summary>
+            Executes an action on the message loop thread without waiting for it to complete.
+            </summary>
+            <remarks>Does nothing if the <see cref="T:System.Windows.Forms.Form"/> was not yet created.</remarks>
+            <param name="action">The action to execute; gets passed the <typeparamref name="T"/> instance.</param>
+            <exception cref="T:System.OperationCanceledException">The form was closed.</exception>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.Close">
+            <summary>
+            Closes the <see cref="T:System.Windows.Forms.Form"/> and stops the message loop.
+            </summary>
+            <remarks>Does nothing if the <see cref="T:System.Windows.Forms.Form"/> was not yet created.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.AsyncFormWrapper`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.EditorControlBase`1">
+            <summary>
+            Common base class for <see cref="T:NanoByte.Common.Controls.IEditorControl`1"/> implementations.
+            </summary>
+            <typeparam name="T">The type of element to edit.</typeparam>
+        </member>
+        <member name="P:NanoByte.Common.Controls.EditorControlBase`1.Target">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.EditorControlBase`1.TargetChanged">
+            <summary>
+            Is raised when <see cref="P:NanoByte.Common.Controls.EditorControlBase`1.Target"/> has been changed.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.EditorControlBase`1.CommandExecutor">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.EditorControlBase`1.CommandExecutorChanged">
+            <summary>
+            Is raised when <see cref="P:NanoByte.Common.Controls.EditorControlBase`1.CommandExecutor"/> has been changed.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.EditorControlBase`1.OnRefresh">
+            <summary>
+            Is raised when <see cref="M:NanoByte.Common.Controls.EditorControlBase`1.Refresh"/> is called.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorControlBase`1.RegisterControl(System.Windows.Forms.Control,NanoByte.Common.PropertyPointer{System.String})">
+            <summary>
+            Hooks a WinForms control in to the live editing and Undo system.
+            </summary>
+            <param name="control">The control to hook up (is automatically added to <see cref="P:System.Windows.Forms.Control.Controls"/>).</param>
+            <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorControlBase`1.RegisterControl(System.Windows.Forms.ComboBox,NanoByte.Common.PropertyPointer{System.String})">
+            <summary>
+            Hooks a <see cref="T:System.Windows.Forms.ComboBox"/> in to the live editing and Undo system.
+            </summary>
+            <param name="control">The control to hook up (is automatically added to <see cref="P:System.Windows.Forms.Control.Controls"/>).</param>
+            <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorControlBase`1.RegisterControl(NanoByte.Common.Controls.UriTextBox,NanoByte.Common.PropertyPointer{System.Uri})">
+            <summary>
+            Hooks a <see cref="T:NanoByte.Common.Controls.UriTextBox"/> in to the live editing and Undo system.
+            </summary>
+            <param name="control">The control to hook up (is automatically added to <see cref="P:System.Windows.Forms.Control.Controls"/>).</param>
+            <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorControlBase`1.RegisterControl``2(``0,System.Func{``1})">
+            <summary>
+            Hooks up a <see cref="T:NanoByte.Common.Controls.IEditorControl`1"/> as child editor.
+            </summary>
+            <typeparam name="TControl">The specific <see cref="T:NanoByte.Common.Controls.IEditorControl`1"/> type.</typeparam>
+            <typeparam name="TChild">The type the child editor handles.</typeparam>
+            <param name="control">The control to hook up (is automatically added to <see cref="P:System.Windows.Forms.Control.Controls"/>).</param>
+            <param name="getTarget">Callback to retrieve the (child) target of the <paramref name="control"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorControlBase`1.RegisterControl(System.Windows.Forms.CheckBox,NanoByte.Common.PropertyPointer{System.Boolean})">
+            <summary>
+            Hooks a <see cref="T:System.Windows.Forms.CheckBox"/> in to the live editing and Undo system.
+            </summary>
+            <param name="control">The control to hook up (is automatically added to <see cref="P:System.Windows.Forms.Control.Controls"/>).</param>
+            <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        </member>
+        <member name="T:NanoByte.Common.Controls.EditorDialog`1">
+            <summary>
+            Edits arbitrary types of elements using an <see cref="T:NanoByte.Common.Controls.GenericEditorControl`1"/>.
+            </summary>
+            <typeparam name="T">The type of element to edit.</typeparam>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorDialog`1.ShowDialog(System.Windows.Forms.IWin32Window,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorDialog`1.ShowDialog(`0)">
+            <summary>
+            Displays a modal dialog without a parent (listed in the taskbar) for editing an element.
+            </summary>
+            <param name="element">The element to be edited.</param>
+            <returns>Save changes if <see cref="F:System.Windows.Forms.DialogResult.OK"/>; discard changes if <see cref="F:System.Windows.Forms.DialogResult.Cancel"/>.</returns>
+        </member>
+        <member name="F:NanoByte.Common.Controls.EditorDialog`1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorDialog`1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.EditorDialog`1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.ErrorBox">
+            <summary>
+            A dialog displaying an error message and details.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorBox.Show(System.Windows.Forms.IWin32Window,System.Exception,NanoByte.Common.Controls.RtfBuilder)">
+            <summary>
+            Displays an error box with a message and details.
+            </summary>
+            <param name="owner">The parent window for the dialog; can be <see langword="null"/>.</param>
+            <param name="exception">The error message to display.</param>
+            <param name="logRtf">The details formatted as RTF.</param>
+            <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
+        </member>
+        <member name="F:NanoByte.Common.Controls.ErrorBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.ErrorReportForm">
+            <summary>
+            Presents the user with a friendly interface in case of an error, offering to report it to the developers.
+            </summary>
+            <remarks>This class should only be used by <see cref="N:System.Windows.Forms"/> applications.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.#ctor(System.Exception,System.Uri)">
+            <summary>
+            Prepares reporting an error.
+            </summary>
+            <param name="exception">The exception object describing the error.</param>
+            <param name="uploadUri">The URI to upload error reports to.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.SetupMonitoring(System.Uri)">
+            <summary>
+            Sets up hooks that catch and report any unhandled exceptions. Calling this more than once has no effect.
+            </summary>
+            <param name="uploadUri">The URI to upload error reports to.</param>
+            <remarks>If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.HideForms">
+            <summary>
+            Prevent any further user interaction with the crashing application
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.Report(System.Exception,System.Uri)">
+            <summary>
+            Displays the error reporting form.
+            </summary>
+            <param name="ex">The exception to report.</param>
+            <param name="uploadUri">The URI to upload error reports to.</param>
+            <remarks>Modal to all windows on the current thread. Creates a new message loop if none exists.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.GenerateReportFile">
+            <summary>
+            Generates a ZIP archive containing crash information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:NanoByte.Common.Controls.ErrorReportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.ErrorReportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.ErrorReport">
+            <summary>
+            Wraps information about an crash in a serializer-friendly format.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.ErrorReport.Application">
+            <summary>
+            Information about the current application.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.ErrorReport.OS">
+            <summary>
+            Information about the current operating system.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.ErrorReport.Exception">
+            <summary>
+            Information about the exception that occurred.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.ErrorReport.Log">
+            <summary>
+            The contents of the <see cref="P:NanoByte.Common.Controls.ErrorReport.Log"/> file.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.ErrorReport.Comments">
+            <summary>
+            Comments about the crash entered by the user.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.FilteredTreeView`1">
+            <summary>
+            Displays a list of <see cref="T:NanoByte.Common.INamed`1"/>s objects in a <see cref="T:System.Windows.Forms.TreeView"/> with incremental search.
+            An automatic hierachy is generated based on a <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.Separator"/> character.
+            </summary>
+            <typeparam name="T">The type of <see cref="T:NanoByte.Common.INamed`1"/> object to list.
+            Special support for types implementing <see cref="T:NanoByte.Common.Controls.IHighlightColor"/> and/or <see cref="T:NanoByte.Common.Controls.IContextMenu"/>.</typeparam>
+        </member>
+        <member name="E:NanoByte.Common.Controls.FilteredTreeView`1.SelectedEntryChanged">
+            <summary>
+            Occurs whenever <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.SelectedEntry"/> has been changed.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.FilteredTreeView`1.SelectionConfirmed">
+            <summary>
+            Occurs when the user has confirmed the <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.SelectedEntry"/> via double-clicking or pressing Enter.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.FilteredTreeView`1.CheckedEntriesChanged">
+            <summary>
+            Occurs whenever the content of <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.CheckedEntries"/> has changed.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.FilteredTreeView`1._supressEvents">
+            <summary>Suppress the execution of <see cref="E:NanoByte.Common.Controls.FilteredTreeView`1.SelectedEntryChanged"/>.</summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.ShowSearchBox">
+            <summary>
+            Toggle the visibility of the search box.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.Nodes">
+            <summary>
+            The <see cref="T:NanoByte.Common.INamed`1"/> (and optionally <see cref="T:NanoByte.Common.Controls.IContextMenu"/>) objects to be listed in the tree.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.SelectedEntry">
+            <summary>
+            The <see cref="T:NanoByte.Common.INamed`1"/> object currently selected in the <see cref="T:System.Windows.Forms.TreeView"/>; <see langword="null"/> for no selection.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.CheckedEntries">
+            <summary>
+            Returns a list of all <see cref="T:NanoByte.Common.INamed`1"/> objects currently marked with a check box.
+            </summary>
+            <remarks>Does NOT create a defensive copy. Take care to only add valid elements when modifying. Call <see cref="M:NanoByte.Common.Controls.FilteredTreeView`1.UpdateList(System.Object)"/> after changing.</remarks>
+            <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.CheckBoxes"/>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.Separator">
+            <summary>
+            The character used to separate namespaces in the <see cref="P:NanoByte.Common.INamed`1.Name"/>s. This controls how the tree structure is generated.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.FilteredTreeView`1.CheckBoxes">
+            <summary>
+            Controls whether check boxes are displayed for every entry.
+            </summary>
+            <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.CheckedEntries"/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.FilteredTreeView`1.UpdateList(System.Object)">
+            <summary>
+            Updates the filtered <see cref="T:System.Windows.Forms.TreeView"/> representation of <see cref="P:NanoByte.Common.Controls.FilteredTreeView`1.Nodes"/>.
+            </summary>
+            <remarks>Called automatically internally.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.FilteredTreeView`1.AddTreeNode(`0)">
+            <summary>
+            Adds a new node to <see cref="F:NanoByte.Common.Controls.FilteredTreeView`1.treeView"/>.
+            </summary>
+            <param name="entry">The <typeparamref name="T"/> to create the entry for.</param>
+            <returns>The newly created <see cref="T:System.Windows.Forms.TreeNode"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Controls.FilteredTreeView`1.ExpandNodes(System.Windows.Forms.TreeNodeCollection,System.Boolean)">
+            <summary>
+            Automatically expand nodes based on the <see cref="F:NanoByte.Common.Controls.FilteredTreeView`1.textSearch"/> filtering
+            </summary>
+            <param name="subTree">The current <see cref="T:System.Windows.Forms.TreeNodeCollection"/> used in recursion</param>
+            <param name="fullNameExpand">Shall a search for the full name of a tag allow it to be expanded?</param>
+        </member>
+        <member name="F:NanoByte.Common.Controls.FilteredTreeView`1.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.FilteredTreeView`1.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.FilteredTreeView`1.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.GenericEditorControl`1">
+            <summary>
+            Edits arbitrary types of elements using a <see cref="T:System.Windows.Forms.PropertyGrid"/>. Provides optional <see cref="N:NanoByte.Common.Undo"/> support.
+            </summary>
+            <typeparam name="T">The type of element to edit.</typeparam>
+        </member>
+        <member name="T:NanoByte.Common.Controls.HintTextBox">
+            <summary>
+            A special <see cref="T:System.Windows.Forms.TextBox"/> that displays a <see cref="P:NanoByte.Common.Controls.HintTextBox.HintText"/> when <see cref="P:System.Windows.Forms.TextBox.Text"/> is empty and a clear button when it is not.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.HintTextBox.OnEnter(System.EventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.HintTextBox.OnLeave(System.EventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.HintTextBox.OnTextChanged(System.EventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.HintTextBox.OnBackColorChanged(System.EventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.HintTextBox.ClearButtonClicked">
+            <summary>
+            Occurs when the clear button is clicked.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.HintTextBox.OnClearButtonClicked(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:NanoByte.Common.Controls.HintTextBox.ClearButtonClicked"/> event.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.HintTextBox._suppressTextChangedEvent">
+            <summary>Prevents <see cref="M:NanoByte.Common.Controls.HintTextBox.OnTextChanged(System.EventArgs)"/> from raising any events.</summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.HintTextBox.ForeColor">
+            <summary>
+            Gets or sets the color used when displaying text in the control.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.HintTextBox.Text">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Controls.HintTextBox.HintText">
+            <summary>
+            A text to be displayed in <see cref="P:System.Drawing.SystemColors.GrayText"/> when <see cref="P:System.Windows.Forms.TextBox.Text"/> is empty.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.HintTextBox.IsHintTextVisible">
+            <summary>
+            Indicates whether the <see cref="P:NanoByte.Common.Controls.HintTextBox.HintText"/> is currently visible.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.HintTextBox.ShowClearButton">
+            <summary>
+            Controls whether the clear button is shown. Remains invisible when the <see cref="P:NanoByte.Common.Controls.HintTextBox.HintText"/> is visible.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IContextMenu">
+            <summary>
+            An object that can provide its own context menu.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Controls.FilteredTreeView`1"/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.IContextMenu.GetContextMenu">
+            <summary>
+            Returns the context menu for this object; can be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IEditorControl`1">
+            <summary>
+            Provides an interface to a control that edits a single object.
+            </summary>
+            <typeparam name="T">The type of object to edit.</typeparam>
+        </member>
+        <member name="P:NanoByte.Common.Controls.IEditorControl`1.Target">
+            <summary>
+            The element to be edited.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.IEditorControl`1.CommandExecutor">
+            <summary>
+            An optional undo system to use for editing.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IEditorControlContainerRef`2">
+            <summary>
+            Provides an interface to a control that edits a single object and has a reference to the containing object.
+            </summary>
+            <typeparam name="T">The type of object to edit.</typeparam>
+            <typeparam name="TContainer">The type of the container of <typeparamref name="T"/>.</typeparam>
+        </member>
+        <member name="P:NanoByte.Common.Controls.IEditorControlContainerRef`2.ContainerRef">
+            <summary>
+            The <see cref="P:NanoByte.Common.Controls.IEditorControl`1.Target"/>'s container.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IEditorDialog`1">
+            <summary>
+            Provides an interface to a dialog that edits a single object.
+            </summary>
+            <typeparam name="T">The type of object to edit.</typeparam>
+        </member>
+        <member name="M:NanoByte.Common.Controls.IEditorDialog`1.ShowDialog(System.Windows.Forms.IWin32Window,`0)">
+            <summary>
+            Displays a modal dialog for editing an element.
+            </summary>
+            <param name="owner">The parent window used to make the dialog modal.</param>
+            <param name="element">The element to be edited.</param>
+            <returns>Save changes if <see cref="F:System.Windows.Forms.DialogResult.OK"/>; discard changes if  <see cref="F:System.Windows.Forms.DialogResult.Cancel"/>.</returns>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IHighlightColor">
+            <summary>
+            An object that can be highlighted with a specific color in list representations.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Controls.FilteredTreeView`1"/>
+        </member>
+        <member name="P:NanoByte.Common.Controls.IHighlightColor.HighlightColor">
+            <summary>
+            The color to highlight this object with in list representations. <see cref="F:System.Drawing.Color.Empty"/> for no highlighting.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.InputBox">
+            <summary>
+            Shows a simple dialog asking the user to input some text.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InputBox.Show(System.Windows.Forms.IWin32Window,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Displays an input box asking the the user to input some text.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="title">The window title to use.</param>
+            <param name="prompt">The prompt to display.</param>
+            <param name="defaultText">The default text to show pre-entered in the input field.</param>
+            <param name="password">Shall the input characters be hidden as a password?</param>
+            <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
+        </member>
+        <member name="F:NanoByte.Common.Controls.InputBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InputBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InputBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.InspectionForm">
+            <summary>
+            Contains a single property grid for inspecting and manipulating the properties of an arbitrary object.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InspectionForm.#ctor(System.Object)">
+            <summary>
+             Creates a new inspection form.
+            </summary>
+            <param name="value">The object to be inspected.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InspectionForm.Inspect(System.Object)">
+            <summary>
+            Displays a property grid for manipulating the properties of an object.
+            </summary>
+            <param name="value">The object to be inspected.</param>
+        </member>
+        <member name="F:NanoByte.Common.Controls.InspectionForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InspectionForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.InspectionForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.ITouchControl">
+            <summary>
+            A control that can raise touch events.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.ITouchControl.TouchDown">
+            <summary>
+            Raised when the user begins touching the screen.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.ITouchControl.TouchUp">
+            <summary>
+            Raised when the user stops touching the screen.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.ITouchControl.TouchMove">
+            <summary>
+            Raised when the user moves fingers while touching the screen.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.IWizardPage">
+            <summary>
+            An interface that <see cref="T:NanoByte.Common.Controls.Wizard"/> pages can optionally implement to receive additional event notifications.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.IWizardPage.OnPageShow">
+            <summary>
+            Called when the wizard page is shown.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.LiveEditor">
+            <summary>
+            A text editor that automatically validates changes using an external callback after a short period of no input.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.LiveEditor.ContentChanged">
+            <summary>
+            Raised when changes have accumulated after a short period of no input.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.LiveEditor.TextEditor">
+            <summary>
+            The text editor control used internally.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.SetContent(System.String,System.String)">
+            <summary>
+            Sets a new text to be edited.
+            </summary>
+            <param name="text">The text to set.</param>
+            <param name="format">The format named used to determine the highlighting scheme (e.g. XML).</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.ClearUndoStack">
+            <summary>
+            Clears the undo stack of the underlying text editor control.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.LiveEditor.EnableUndo">
+            <summary>
+            Indicates whether <see cref="M:NanoByte.Common.Controls.LiveEditor.Undo"/> is currently available.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.LiveEditor.EnableRedo">
+            <summary>
+            Indicates whether <see cref="M:NanoByte.Common.Controls.LiveEditor.Redo"/> is currently available.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.Undo">
+            <summary>
+            Executes the undo method of the underlying text editor control.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.Redo">
+            <summary>
+            Executes the redo method of the underlying text editor control.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.LiveEditor.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LiveEditor.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.LocalizableTextBox">
+            <summary>
+            A control for editing a <see cref="T:NanoByte.Common.Collections.LocalizableStringCollection"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.LocalizableTextBox.Multiline">
+            <summary>
+            Controls whether the text can span more than one line.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.LocalizableTextBox.HintText">
+            <summary>
+            A text to be displayed in <see cref="P:System.Drawing.SystemColors.GrayText"/> when the text box is empty.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.LocalizableTextBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LocalizableTextBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being Used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.LocalizableTextBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.OKCancelDialog">
+            <summary>
+            A base-class for creating fixed-size dialog boxes with an OK and a Cancel button.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OKCancelDialog.OnOKClicked">
+            <summary>
+            This hook is called when the user clicks the OK button.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OKCancelDialog.OnCancelClicked">
+            <summary>
+            This hook is called when the user clicks the Cancel button.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.OKCancelDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OKCancelDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OKCancelDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.OutputBox">
+            <summary>
+            A simple dialog displaying selectable multi-line text.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputBox.Show(System.Windows.Forms.IWin32Window,System.String,System.String)">
+            <summary>
+            Displays an ouput box with some text.
+            </summary>
+            <param name="owner">The parent window for the dialogs; can be <see langword="null"/>.</param>
+            <param name="title">The text to display above the <paramref name="message"/>.</param>
+            <param name="message">The selectable multi-line text to display to the user.</param>
+        </member>
+        <member name="F:NanoByte.Common.Controls.OutputBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.OutputGridBox">
+            <summary>
+            Displays tabular data to the user.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputGridBox.Show``1(System.Windows.Forms.IWin32Window,System.String,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Displays an ouput dialog with tabular data.
+            </summary>
+            <typeparam name="T">The type of the data elements to display.</typeparam>
+            <param name="owner">The parent window for the dialogs; can be <see langword="null"/>.</param>
+            <param name="title">A title for the data.</param>
+            <param name="data">The data to display.</param>
+        </member>
+        <member name="T:NanoByte.Common.Controls.OutputGridBox.SimpleEntry`1">
+            <summary>
+            Simple wrapper around objects to make them appear as a single column in a <see cref="T:System.Windows.Forms.DataGridView"/>.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.OutputGridBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputGridBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.OutputGridBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.ResettablePropertyGrid">
+            <summary>
+            A <see cref="T:System.Windows.Forms.PropertyGrid"/> that provides a "reset value" option in its context menu.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.RtfColor">
+            <seealso cref="M:NanoByte.Common.Controls.RtfBuilder.AppendPar(System.String,NanoByte.Common.Controls.RtfColor)"/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.RtfBuilder">
+            <summary>
+            Helps build an RTF-formated string.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.RtfBuilder.AppendPar(System.String,NanoByte.Common.Controls.RtfColor)">
+            <summary>
+            Appends a new paragraph.
+            </summary>
+            <param name="text">The text in the paragraph.</param>
+            <param name="color">The color of the text.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.RtfBuilder.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.SplitButton">
+            <summary>
+            A <see cref="T:System.Windows.Forms.Button"/> with an additional drop-down menu.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TaskControl">
+            <summary>
+            Combines a <see cref="T:NanoByte.Common.Controls.TaskProgressBar"/> and a <see cref="T:NanoByte.Common.Controls.TaskLabel"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TaskControl.TaskName">
+            <summary>
+            The name of the task being tracked.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskControl.#ctor">
+            <summary>
+            Creates a new task tracking control.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskControl.Report(NanoByte.Common.Tasks.TaskSnapshot)">
+            <inheritdoc/>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TaskControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TaskLabel">
+            <summary>
+            A progress label that takes <see cref="T:NanoByte.Common.Tasks.TaskSnapshot"/> inputs.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskLabel.Report(NanoByte.Common.Tasks.TaskSnapshot)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TaskProgressBar">
+            <summary>
+            A progress bar that takes <see cref="T:NanoByte.Common.Tasks.TaskSnapshot"/> inputs.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TaskProgressBar.ParentHandle">
+            <summary>
+            Determines the handle of the <see cref="T:System.Windows.Forms.Form"/> containing this control.
+            </summary>
+            <returns>The handle of the parent <see cref="T:System.Windows.Forms.Form"/> or <see cref="F:System.IntPtr.Zero"/> if there is no parent.</returns>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TaskProgressBar.UseTaskbar">
+            <summary>
+            Show the progress in the Windows taskbar.
+            </summary>
+            <remarks>Use only once per window. Only works on Windows 7 or newer.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TaskProgressBar.Report(NanoByte.Common.Tasks.TaskSnapshot)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TimeSpanControl">
+            <summary>
+            Allows the input of a <see cref="T:System.TimeSpan"/> using <see cref="T:System.Windows.Forms.NumericUpDown"/> boxes.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TimeSpanControl.Value">
+            <summary>
+            The time span currently represented by the control.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TimeSpanControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TimeSpanControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.TimeSpanControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TouchEventMask">
+            <summary>
+            Mask indicating which fields in <see cref="T:NanoByte.Common.Controls.TouchEventArgs"/> are valid.
+            </summary>
+            <seealso cref="P:NanoByte.Common.Controls.TouchEventArgs.Mask"/>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventMask.Time">
+            <summary>TOUCHINPUTMASKF_TIMEFROMSYSTEM</summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventMask.ExtraInfo">
+            <summary>TOUCHINPUTMASKF_EXTRAINFO</summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventMask.ContactArea">
+            <summary>TOUCHINPUTMASKF_CONTACTAREA</summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TouchEventArgs">
+            <summary>
+            Event information about a touch event.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.LocationX">
+            <summary>
+            Touch X client coordinate in pixels.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.LocationY">
+            <summary>
+            Touch Y client coordinate in pixels.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.ContactX">
+            <summary>
+            X size of the contact area in pixels.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.ContactY">
+            <summary>
+            X size of the contact area in pixels.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.ID">
+            <summary>
+            Contact ID.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.Mask">
+            <summary>
+            Mask indicating which fields in the structure are valid.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.TouchEventArgs.Time">
+            <summary>
+            Touch event time.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventArgs.Primary">
+            <summary>
+            Indicates that this structure corresponds to a primary contact point.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventArgs.Palm">
+            <summary>
+            The touch event came from the user's palm.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventArgs.InRange">
+            <summary>
+            The user is hovering above the touch screen.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.TouchEventArgs.NoCoalesce">
+            <summary>
+            This input was not coalesced.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TouchForm">
+            <summary>
+            Represents a window that reacts to touch input on Windows 7 or newer.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchForm.TouchDown">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchForm.TouchUp">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchForm.TouchMove">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.TouchPanel">
+            <summary>
+            Represents a panel that reacts to touch input on Windows 7 or newer.
+            </summary>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchPanel.TouchDown">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchPanel.TouchUp">
+            <inheritdoc/>
+        </member>
+        <member name="E:NanoByte.Common.Controls.TouchPanel.TouchMove">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Controls.UriTextBox">
+            <summary>
+            A <see cref="T:NanoByte.Common.Controls.HintTextBox"/> designed specifically for entering URIs.
+            </summary>
+            <remarks>Will turn red for invalid input and green for valid input. Will not allow focus to be lost for invalid input.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Controls.UriTextBox.OnDragEnter(System.Windows.Forms.DragEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.UriTextBox.OnDragDrop(System.Windows.Forms.DragEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Controls.UriTextBox.Uri">
+            <summary>
+            The <see cref="P:NanoByte.Common.Controls.UriTextBox.Uri"/> represented by this text box.
+            </summary>
+            <exception cref="T:System.UriFormatException">Trying to read while <see cref="P:System.Windows.Forms.TextBox.Text"/> is not a well-formed <see cref="P:NanoByte.Common.Controls.UriTextBox.Uri"/>.</exception>
+            <remarks>It is always safe to set this property. It is safe to read this property after validation has been performed.</remarks>
+        </member>
+        <member name="P:NanoByte.Common.Controls.UriTextBox.HttpOnly">
+            <summary>
+            When set to <see langword="true"/> only URIs starting with "http:" or "https:" will be considered valid.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.UriTextBox.AllowRelative">
+            <summary>
+            When set to <see langword="true"/> relative URIs are accepted.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.UriTextBox.IsValid">
+            <summary>
+            Indicates whether the currently entered text is a valid URI.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.UriTextBox.ValidateUri(System.String)">
+            <summary>
+            Checks if a text represents a valid <see cref="P:NanoByte.Common.Controls.UriTextBox.Uri"/>.
+            </summary>
+            <param name="text">Text to check.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.UriTextBox.GetDropText(System.Windows.Forms.DragEventArgs)">
+            <summary>
+            Returns the text dropped on a control.
+            </summary>
+            <param name="dragEventArgs">Argument of a dragging operation.</param>
+            <returns>The dropped text.</returns>
+        </member>
+        <member name="T:NanoByte.Common.Controls.Wizard">
+            <summary>
+            A base class for creating wizard interfaces. Manages pages as a stack of <see cref="T:System.Windows.Forms.UserControl"/>s.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Controls.IWizardPage"/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.Wizard.#ctor">
+            <summary>
+            Creates a new wizard.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.Wizard.PageStack">
+            <summary>
+            The wizard page history with the currently visible page on top.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.Wizard.PushPage(System.Windows.Forms.UserControl)">
+            <summary>
+            Displays a new wizard page and adds it to the <see cref="F:NanoByte.Common.Controls.Wizard.PageStack"/>.
+            </summary>
+            <param name="page">The page to display and add.</param>
+            <seealso cref="T:NanoByte.Common.Controls.IWizardPage"/>
+        </member>
+        <member name="M:NanoByte.Common.Controls.Wizard.PopPage">
+            <summary>
+            Removes the current wizard page form the <see cref="F:NanoByte.Common.Controls.Wizard.PageStack"/> and displays the previous one.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Msg">
+            <summary>
+            Provides easier access to typical <see cref="T:System.Windows.Forms.MessageBox"/> configurations and automatically upgrades to TaskDialogs when avialable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Msg.Inform(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity)">
+            <summary>
+            Displays a message to the user using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+        </member>
+        <member name="M:NanoByte.Common.Msg.OkCancel(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity,System.String,System.String)">
+            <summary>
+            Asks the user a OK/Cancel-question using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <param name="okCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.OK"/> option.</param>
+            <param name="cancelCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.Cancel"/> option; can be <see langword="null"/>.</param>
+            <returns><see langword="true"/> if <paramref name="okCaption"/> was selected, <see langword="false"/> if <paramref name="cancelCaption"/> was selected.</returns>
+            <remarks>If a <see cref="T:System.Windows.Forms.MessageBox"/> is used, <paramref name="okCaption"/> and <paramref name="cancelCaption"/> are not display to the user, so don't rely on them!</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Msg.OkCancel(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity)">
+            <summary>
+            Asks the user a OK/Cancel-question using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <returns><see langword="true"/> if OK was selected, <see langword="false"/> if Cancel was selected.</returns>
+            <remarks>If a <see cref="T:System.Windows.Forms.MessageBox"/> is used, OK and Cancel are not display to the user, so don't rely on them!</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Msg.YesNo(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity,System.String,System.String)">
+            <summary>
+            Asks the user to choose between two options (yes/no) using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <param name="yesCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.Yes"/> option.</param>
+            <param name="noCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.No"/> option.</param>
+            <returns><see langword="true"/> if <paramref name="yesCaption"/> was chosen, <see langword="false"/> if <paramref name="noCaption"/> was chosen.</returns>
+            <remarks>If a <see cref="T:System.Windows.Forms.MessageBox"/> is used, <paramref name="yesCaption"/> and <paramref name="noCaption"/> are not display to the user, so don't rely on them!</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Msg.YesNo(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity)">
+            <summary>
+            Asks the user to choose between two options (yes/no) using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+        </member>
+        <member name="M:NanoByte.Common.Msg.YesNoCancel(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity,System.String,System.String)">
+            <summary>
+            Asks the user to choose between three options (yes/no/cancel) using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <param name="yesCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.Yes"/> option.</param>
+            <param name="noCaption">The title and a short description (separated by a linebreak) of the <see cref="F:System.Windows.Forms.DialogResult.No"/> option.</param>
+            <returns><see cref="F:System.Windows.Forms.DialogResult.Yes"/> if <paramref name="yesCaption"/> was chosen,
+            <see cref="F:System.Windows.Forms.DialogResult.No"/> if <paramref name="noCaption"/> was chosen,
+            <see cref="F:System.Windows.Forms.DialogResult.Cancel"/> otherwise.</returns>
+            <remarks>If a <see cref="T:System.Windows.Forms.MessageBox"/> is used, <paramref name="yesCaption"/> and <paramref name="noCaption"/> are not display to the user, so don't rely on them!</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Msg.YesNoCancel(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity)">
+            <summary>
+            Asks the user to choose between three options (yes/no/cancel) using a <see cref="T:System.Windows.Forms.MessageBox"/> or <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <returns><see cref="F:System.Windows.Forms.DialogResult.Yes"/> if Yes was chosen,
+            <see cref="F:System.Windows.Forms.DialogResult.No"/> if No was chosen,
+            <see cref="F:System.Windows.Forms.DialogResult.Cancel"/> otherwise.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Msg.ShowMesageBox(System.Windows.Forms.IWin32Window,System.String,NanoByte.Common.MsgSeverity,System.Windows.Forms.MessageBoxButtons)">
+            <summary>Displays a message using a <see cref="T:System.Windows.Forms.MessageBox"/>.</summary>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+            <param name="buttons">The buttons the user can click.</param>
+        </member>
+        <member name="M:NanoByte.Common.Msg.GetTaskDialog(System.String,NanoByte.Common.MsgSeverity)">
+            <summary>
+            Displays a message using a <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="text">The message to be displayed.</param>
+            <param name="severity">How severe/important the message is.</param>
+        </member>
+        <member name="M:NanoByte.Common.Msg.ShowTaskDialog(TaskDialog.TaskDialog,System.Windows.Forms.IWin32Window)">
+            <summary>
+            Displays a <see cref="N:TaskDialog"/>.
+            </summary>
+            <param name="taskDialog">The <see cref="N:TaskDialog"/> to display.</param>
+            <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+            <returns>Indicates the button the user pressed.</returns>
+            <exception cref="T:System.BadImageFormatException">The task-dialog DLL could not be loaded.</exception>
+            <exception cref="T:System.EntryPointNotFoundException">The task-dialog DLL routine could not be called.</exception>
+        </member>
+        <member name="T:NanoByte.Common.Native.WindowMessage">
+            <summary>
+            Values for <see cref="P:System.Windows.Forms.Message.Msg"/>.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Native.WinFormsUtils">
+            <summary>
+            Provides helper methods and API calls specific to the <see cref="N:System.Windows.Forms"/> UI toolkit.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.RegisterTouchWindow(System.Windows.Forms.Control)">
+            <summary>
+            Registers a control as a receiver for touch events.
+            </summary>
+            <param name="control">The control to register.</param>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.HandleTouchMessage(System.Windows.Forms.Message@,System.Object,System.EventHandler{NanoByte.Common.Controls.TouchEventArgs},System.EventHandler{NanoByte.Common.Controls.TouchEventArgs},System.EventHandler{NanoByte.Common.Controls.TouchEventArgs})">
+            <summary>
+            Handles touch-related <see cref="M:System.Windows.Forms.Control.WndProc(System.Windows.Forms.Message@)"/> <see cref="T:System.Windows.Forms.Message"/>s.
+            </summary>
+            <param name="m">The message to handle.</param>
+            <param name="sender">The object to send possible events from.</param>
+            <param name="onTouchDown">The event handler to call for touch down events; can be <see langword="null"/>.</param>
+            <param name="onTouchMove">The event handler to call for touch move events; can be <see langword="null"/>.</param>
+            <param name="onTouchUp">The event handler to call for touch up events; can be <see langword="null"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.SetForegroundWindow(System.Windows.Forms.Form)">
+            <summary>
+            Forces a window to the foreground or flashes the taskbar if another process has the focus.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.AddShieldIcon(System.Windows.Forms.Button)">
+            <summary>
+            Adds a UAC shield icon to a button. Does nothing if not running Windows Vista or newer.
+            </summary>
+            <remarks>This is purely cosmetic. UAC elevation is a separate concern.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.IsKeyDown(System.Windows.Forms.Keys)">
+            <summary>
+            Determines whether <paramref name="key"/> is pressed right now.
+            </summary>
+            <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
+        </member>
+        <member name="P:NanoByte.Common.Native.WinFormsUtils.AppIdle">
+            <summary>
+            Determines whether this application is currently idle.
+            </summary>
+            <returns><see langword="true"/> if idle, <see langword="false"/> if handling window events.</returns>
+            <remarks>Will always return <see langword="true"/> on non-Windows OSes.</remarks>
+        </member>
+        <member name="P:NanoByte.Common.Native.WinFormsUtils.CaretBlinkTime">
+            <summary>
+            Text-box caret blink time in seconds.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.SetCapture(System.IntPtr)">
+            <summary>
+            Prevents the mouse cursor from leaving a specific window.
+            </summary>
+            <param name="handle">The handle to the window to lock the mouse cursor into.</param>
+            <returns>A handle to the window that had previously captured the mouse.</returns>
+            <remarks>Will do nothing on non-Windows OSes.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Native.WinFormsUtils.ReleaseCapture">
+            <summary>
+            Releases the mouse cursor after it was locked by <see cref="M:NanoByte.Common.Native.WinFormsUtils.SetCapture(System.IntPtr)"/>.
+            </summary>
+            <returns><see langword="true"/> if successful; <see langword="false"/> otherwise.</returns>
+            <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
+        </member>
+        <member name="T:NanoByte.Common.StructureEditor.ChildInfo">
+            <summary>
+            Information and callbacks for a potential new child node in the structure.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.StructureEditor.ContainerDescription`1">
+            <summary>
+            Describes an object that contains properties and/or lists. Provides information about how to edit this content.
+            </summary>
+            <typeparam name="TContainer">The type of the container to be described.</typeparam>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.GetEntrysIn(`0)">
+            <summary>
+            Returns information about entries found in a specific instance of <typeparamref name="TContainer"/>.
+            </summary>
+            <param name="container">The container instance to look in to.</param>
+            <returns>A list of entry information structures.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.GetPossibleChildrenFor(`0)">
+            <summary>
+            Returns information about possible new children for a specific instance of <typeparamref name="TContainer"/>.
+            </summary>
+            <param name="container">The container instance to look at.</param>
+            <returns>A list of child information structures.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddList``1(System.Func{`0,System.Collections.Generic.IList{``0}})">
+            <summary>
+            Adds a list to the description.
+            </summary>
+            <typeparam name="TList">The type of elements in the list.</typeparam>
+            <param name="getList">A function to retrieve the list from the container.</param>
+            <returns>A list description, enabling you to specify explicit sub-types of <typeparamref name="TList"/> allowed in the list.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddPlainList``2(System.String,System.Func{`0,System.Collections.Generic.IList{``0}})">
+            <summary>
+            Adds a list with only one type of element to the description.
+            </summary>
+            <typeparam name="TElement">The type of elements in the list.</typeparam>
+            <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
+            <param name="getList">A function to retrieve the list from the container.</param>
+            <param name="name">The name of the element type.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddPlainListContainerRef``2(System.String,System.Func{`0,System.Collections.Generic.IList{``0}})">
+            <summary>
+            Adds a list with only one type of element to the description. Gives the <typeparamref name="TEditor"/> access to the <typeparamref name="TContainer"/>.
+            </summary>
+            <typeparam name="TElement">The type of elements in the list.</typeparam>
+            <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
+            <param name="getList">A function to retrieve the list from the container.</param>
+            <param name="name">The name of the element type.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddPlainList``1(System.String,System.Func{`0,System.Collections.Generic.IList{``0}})">
+            <summary>
+            Adds a list with only one type of element to the description.
+            </summary>
+            <typeparam name="TElement">The type of elements in the list.</typeparam>
+            <param name="name">The name of the element type.</param>
+            <param name="getList">A function to retrieve the list from the container.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.ListDescription`1.AddElement``2(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.ListDescription`1.AddElementContainerRef``2(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.ListDescription`1.AddElement``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddProperty``2(System.String,System.Func{`0,NanoByte.Common.PropertyPointer{``0}})">
+            <summary>
+            Adds a property to the description.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <typeparam name="TEditor">An editor for modifying the content of the property.</typeparam>
+            <param name="name">The name of the property.</param>
+            <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddPropertyContainerRef``2(System.String,System.Func{`0,NanoByte.Common.PropertyPointer{``0}})">
+            <summary>
+            Adds a property to the description. Gives the <typeparamref name="TEditor"/> access to the <typeparamref name="TContainer"/>.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <typeparam name="TEditor">An editor for modifying the content of the property.</typeparam>
+            <param name="name">The name of the property.</param>
+            <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.ContainerDescription`1.AddProperty``1(System.String,System.Func{`0,NanoByte.Common.PropertyPointer{``0}})">
+            <summary>
+            Adds a property to the description.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="name">The name of the property.</param>
+            <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="T:NanoByte.Common.StructureEditor.EntryInfo">
+            <summary>
+            Information and callbacks for a specific entry in the structure.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.StructureEditor.IListDescription`2">
+            <summary>
+            Exposes methods for configuring a list in a <see cref="T:NanoByte.Common.StructureEditor.ContainerDescription`1"/> in a Fluent API style.
+            </summary>
+            <typeparam name="TContainer">The type of the container containing the list.</typeparam>
+            <typeparam name="TList">The type of elements in the list.</typeparam>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.IListDescription`2.AddElement``2(System.String)">
+            <summary>
+            Adds a list element type to the description.
+            </summary>
+            <param name="name">The name of the element type.</param>
+            <typeparam name="TElement">The type of a specific element type in the list.</typeparam>
+            <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.IListDescription`2.AddElementContainerRef``2(System.String)">
+            <summary>
+            Adds a list element type to the description. Gives the <typeparamref name="TEditor"/> access to the <typeparamref name="TContainer"/>.
+            </summary>
+            <param name="name">The name of the element type.</param>
+            <typeparam name="TElement">The type of a specific element type in the list.</typeparam>
+            <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.IListDescription`2.AddElement``1(System.String)">
+            <summary>
+            Adds a list element type to the description.
+            </summary>
+            <param name="name">The name of the element type.</param>
+            <typeparam name="TElement">The type of a specific element type in the list.</typeparam>
+            <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="T:NanoByte.Common.StructureEditor.StructureEditorControl`1">
+            <summary>
+            A universal editor for hierarchical structures with undo support.
+            </summary>
+            <remarks>Derive and call <see cref="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.DescribeRoot(System.String)"/> or <see cref="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.DescribeRoot``1(System.String)"/> as well as <see cref="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Describe``1"/> in the constructor.</remarks>
+        </member>
+        <member name="P:NanoByte.Common.StructureEditor.StructureEditorControl`1.CommandManager">
+            <summary>
+            The undo system to use for editing. Required!
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Describe``1">
+            <summary>
+            Adds a <see cref="T:NanoByte.Common.StructureEditor.ContainerDescription`1"/> used to describe the structure of the data being editing.
+            </summary>
+            <typeparam name="TContainer">The type of the container to describe.</typeparam>
+            <returns>The <see cref="T:NanoByte.Common.StructureEditor.ContainerDescription`1"/> for use in a "Fluent API" style.</returns>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.DescribeRoot(System.String)">
+            <summary>
+            Set up handling for the root element with a generic editor.
+            </summary>
+            <param name="name">The name of the root element.</param>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.DescribeRoot``1(System.String)">
+            <summary>
+            Set up handling for the root element with a custom editor.
+            </summary>
+            <typeparam name="TEditor">An editor for modifying the content of the root.</typeparam>
+            <param name="name">The name of the root element.</param>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.RebuildTree">
+            <summary>
+            Rebuilds the <see cref="F:NanoByte.Common.StructureEditor.StructureEditorControl`1.treeView"/> node while attempting to retain the current selection.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.RebuildOnIdle">
+            <summary>
+            Schedules <see cref="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.RebuildTree"/> to be called once on the next <see cref="E:System.Windows.Forms.Application.Idle"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Undo">
+            <summary>
+            Pass through to <see cref="T:NanoByte.Common.Controls.LiveEditor"/> or <see cref="P:NanoByte.Common.StructureEditor.StructureEditorControl`1.CommandManager"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Redo">
+            <summary>
+            Pass through to <see cref="T:NanoByte.Common.Controls.LiveEditor"/> or <see cref="P:NanoByte.Common.StructureEditor.StructureEditorControl`1.CommandManager"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Remove">
+            <summary>
+            Removes the currently selected entry;
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.ToXmlString">
+            <summary>
+            Returns the XML representation fo the <seealso cref="P:NanoByte.Common.StructureEditor.StructureEditorControl`1.SelectedNode"/>.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.StructureEditor.StructureEditorControl`1.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.StructureEditor.StructureEditorControl`1.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Tasks.GuiTaskHandler">
+            <summary>
+            Uses simple dialog boxes to inform the user about the progress of tasks.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.#ctor(System.Windows.Forms.Control)">
+            <summary>
+            Starts <see cref="T:NanoByte.Common.Log"/> recording.
+            </summary>
+            <param name="owner">The parent window for any dialogs created by the handler; can be <see langword="null"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.LogHandler(NanoByte.Common.LogSeverity,System.String)">
+            <summary>
+            Records <see cref="T:NanoByte.Common.Log"/> messages in an internal log based on their <see cref="T:NanoByte.Common.LogSeverity"/> and the current <see cref="T:NanoByte.Common.Tasks.Verbosity"/> level.
+            </summary>
+            <param name="severity">The type/severity of the entry.</param>
+            <param name="message">The message text of the entry.</param>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.BuildCrendentialProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.RunTask(NanoByte.Common.Tasks.ITask)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.Ask(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.Output(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.GuiTaskHandler.Output``1(System.String,System.Collections.Generic.IEnumerable{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Tasks.TaskRunDialog">
+            <summary>
+            A dialog with a progress bar that runs and tracks the progress of an <see cref="T:NanoByte.Common.Tasks.ITask"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.TaskRunDialog.#ctor(NanoByte.Common.Tasks.ITask,NanoByte.Common.Net.ICredentialProvider,NanoByte.Common.Tasks.CancellationTokenSource)">
+            <summary>
+            Creates a new task tracking dialog.
+            </summary>
+            <param name="task">The trackable task to execute and display.</param>
+            <param name="credentialProvider">Object used to retrieve credentials for specific <see cref="T:System.Uri"/>s on demand; can be <see langword="null"/>.</param>
+            <param name="cancellationTokenSource">Used to signal if the user pressed the Cancel button.</param>
+        </member>
+        <member name="P:NanoByte.Common.Tasks.TaskRunDialog.Exception">
+            <summary>
+            An exception thrown by <see cref="M:NanoByte.Common.Tasks.ITask.Run(NanoByte.Common.Tasks.CancellationToken,NanoByte.Common.Net.ICredentialProvider,NanoByte.Common.Tasks.IProgress{NanoByte.Common.Tasks.TaskSnapshot})"/>, if any.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Tasks.TaskRunDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.TaskRunDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Tasks.TaskRunDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Undo.MultiPropertyChangedCommand">
+            <summary>
+            An undo command that handles multiple changed properties - usually used with a <see cref="T:System.Windows.Forms.PropertyGrid"/>.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Undo.MultiPropertyTracker"/>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyChangedCommand.#ctor(System.Object[],System.ComponentModel.PropertyDescriptor,System.Object[],System.Object)">
+            <summary>
+            Initializes the command after the properties were first changed.
+            </summary>
+            <param name="targets">The objects the property belongs to.</param>
+            <param name="property">The property that was changed.</param>
+            <param name="oldValues">The property's old values.</param>
+            <param name="newValue">The property's current value.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyChangedCommand.#ctor(System.Object[],System.Windows.Forms.GridItem,System.Object[])">
+            <summary>
+            Initializes the command after the property was first changed.
+            </summary>
+            <param name="targets">The objects the <see cref="P:System.Windows.Forms.PropertyGrid.SelectedObject"/> is target at.</param>
+            <param name="gridItem">The grid item representing the property being changed.</param>
+            <param name="oldValues">The property's old values.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyChangedCommand.OnRedo">
+            <summary>
+            Set the changed property value again.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyChangedCommand.OnUndo">
+            <summary>
+            Restore the original property values.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Undo.MultiPropertyTracker">
+            <summary>
+            Tracks values in <see cref="T:System.Windows.Forms.PropertyGrid"/>s in order to be able to generate <see cref="T:NanoByte.Common.Undo.MultiPropertyChangedCommand"/>s after a property was changed.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Undo.MultiPropertyTracker._propertyGrid">
+            <summary>The property grid being tracked.</summary>
+        </member>
+        <member name="F:NanoByte.Common.Undo.MultiPropertyTracker._oldValues">
+            <summary>Contains backups of property values.</summary>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyTracker.#ctor(System.Windows.Forms.PropertyGrid)">
+            <summary>
+            Creates a new multi-property tracker.
+            </summary>
+            <param name="propertyGrid">The property grid being tracked.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyTracker.SelectionChanged(System.Object,System.Windows.Forms.SelectedGridItemChangedEventArgs)">
+            <summary>
+            Reacts to any focus change in the <see cref="T:System.Windows.Forms.PropertyGrid"/> and creates backups of the current values before the user can change them.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyTracker.GetCommand(System.Windows.Forms.GridItem)">
+            <summary>
+            Creates an undo command representing a property change the <see cref="T:System.Windows.Forms.PropertyGrid"/> has just performed.
+            </summary>
+            <param name="changedItem">The property grid item that was changed.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.MultiPropertyTracker.MoveOutOfNested(System.Windows.Forms.GridItem)">
+            <summary>
+            Moves up a hierachy of nested properties to the top element that is still a property.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Undo.PropertyChangedCommand">
+            <summary>
+            An undo command that handles a changed property - usually used with a <see cref="T:System.Windows.Forms.PropertyGrid"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Undo.PropertyChangedCommand.#ctor(System.Object,System.ComponentModel.PropertyDescriptor,System.Object,System.Object)">
+            <summary>
+            Initializes the command after the property was first changed.
+            </summary>
+            <param name="target">The object the property belongs to.</param>
+            <param name="property">The property that was changed.</param>
+            <param name="oldValue">The property's old value.</param>
+            <param name="newValue">The property's current value.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.PropertyChangedCommand.#ctor(System.Object,System.Windows.Forms.PropertyValueChangedEventArgs)">
+            <summary>
+            Initializes the command after the property was first changed.
+            </summary>
+            <param name="target">The object the <see cref="P:System.Windows.Forms.PropertyGrid.SelectedObject"/> is target at.</param>
+            <param name="e">The event data from the <see cref="E:System.Windows.Forms.PropertyGrid.PropertyValueChanged"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Undo.PropertyChangedCommand.OnRedo">
+            <summary>
+            Set the changed property value again.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Undo.PropertyChangedCommand.OnUndo">
+            <summary>
+            Restore the original property value.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.TimeSpanEditor">
+            <summary>
+            An editor that can be associated with <see cref="T:System.TimeSpan"/> properties. Uses <see cref="T:NanoByte.Common.Controls.TimeSpanControl"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.TimeSpanEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.TimeSpanEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.LanguageSetEditor">
+            <summary>
+            An editor that can be associated with <see cref="T:NanoByte.Common.Collections.LanguageSet"/> properties. Uses a <see cref="T:System.Windows.Forms.CheckedListBox"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.LanguageSetEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.LanguageSetEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

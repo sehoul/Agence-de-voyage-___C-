@@ -1,0 +1,1336 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AlphaFramework.World</name>
+    </assembly>
+    <members>
+        <member name="T:AlphaFramework.World.Components.Collision`1">
+            <summary>
+            Controls how <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/>s occupy space around them.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Collision`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Collision`1.CollisionTest(`0,System.Single)">
+            <summary>
+            Determines whether a a certain point lies within the collision body.
+            </summary>
+            <param name="point">The point to check for collision in entity space.</param>
+            <param name="rotation">How the collision body shall be rotated before performing the collision test.</param>
+            <returns><c>true</c> if <paramref name="point"/> does collide with the body, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Collision`1.CollisionTest(NanoByte.Common.Values.Quadrangle,System.Single)">
+            <summary>
+            Determines whether a certain area lies within the collision body.
+            </summary>
+            <param name="area">The area to check for collision in entity space.</param>
+            <param name="rotation">How the collision body shall be rotated before performing the collision test.</param>
+            <returns><c>true</c> if <paramref name="area"/> does collide with the body, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Collision`1.Clone">
+            <summary>
+            Creates a copy of this <see cref="T:AlphaFramework.World.Components.Collision`1"/>.
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Components.Collision`1"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Components.AnimatedMesh">
+            <summary>
+            Represents an animated mesh loaded from a file.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="T:AlphaFramework.World.Components.CpuParticleSystem">
+            <summary>
+            Represents a particle system whose particles are tracked by the CPU.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="T:AlphaFramework.World.Components.GpuParticleSystem">
+            <summary>
+            Represents a particle system whose particles are tracked by the GPU.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="T:AlphaFramework.World.Components.LightSource">
+            <summary>
+            Represents a point light source.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.LightSource.Color">
+            <summary>
+            The color of this point light source.
+            </summary>
+            <remarks>Is not serialized/stored, <see cref="P:AlphaFramework.World.Components.LightSource.ColorValue"/> is used for that.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Components.LightSource.ColorValue">
+            <summary>Used for XML serialization.</summary>
+            <seealso cref="P:AlphaFramework.World.Components.LightSource.Color"/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.LightSource.Range">
+            <summary>
+            The maximum distance at which the light source has an effect.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.LightSource.Attenuation">
+            <summary>
+            Factors describing the attenuation of light intensity over distance.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Components.ViewType">
+            <seealso cref="P:AlphaFramework.World.Components.Mesh.RenderIn"/>
+        </member>
+        <member name="F:AlphaFramework.World.Components.ViewType.All">
+            <summary>Render in all types of Views</summary>
+        </member>
+        <member name="F:AlphaFramework.World.Components.ViewType.NormalOnly">
+            <summary>Do not render in Support Views</summary>
+        </member>
+        <member name="F:AlphaFramework.World.Components.ViewType.SupportOnly">
+            <summary>Render only in Support Views</summary>
+        </member>
+        <member name="F:AlphaFramework.World.Components.ViewType.GlowOnly">
+            <summary>Render only in Support Views for glow maps</summary>
+        </member>
+        <member name="T:AlphaFramework.World.Components.Mesh">
+            <summary>
+            Represents a mesh loaded from a file.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.Filename">
+            <summary>
+            The filename of the mesh-file to use for rendering.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Mesh.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.RotationX">
+            <summary>
+            How the mesh loaded from the file shall be rotated around the X axis (east to west).
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.RotationY">
+            <summary>
+            How the mesh loaded from the file shall be rotated around the Y axis (top to bottom).
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.RotationZ">
+            <summary>
+            How the mesh loaded from the file shall be rotated around the Z axis (north to south).
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.Scale">
+            <summary>
+            A factor by which to scale the mesh loaded from the file.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.Alpha">
+            <summary>
+            The level of transparency from 0 (solid) to 255 (invisible),
+            256 for alpha channel, -256 for binary alpha channel, 257 for additive blending.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.Pickable">
+            <summary>
+            Can this mesh be picked with the mouse?
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Mesh.RenderIn">
+            <summary>
+            In what kind of Views shall this mesh be rendered?
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Components.Movement">
+            <summary>
+            Controls the basic movement parameters.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Movement.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Movement.Speed">
+            <summary>
+            How many units the <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/> can walk per second.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Movement.Clone">
+            <summary>
+            Creates a shallow copy of this <see cref="T:AlphaFramework.World.Components.Movement"/>
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Components.Movement"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Components.ParticleSystem">
+            <summary>
+            Represents a particle system (e.g. fire or steam) controlled by an XML preset.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.ParticleSystem.Filename">
+            <summary>
+            The filename of the XML particle system preset containing detailed settings.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.ParticleSystem.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.ParticleSystem.VisibilityDistance">
+            <summary>
+            How far this particle system should be visible.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Components.Render">
+            <summary>
+            Controls how an <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/> shall be rendered.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Render.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Render.Shift">
+            <summary>
+            How this component is to be shifted before rendering.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.Render.ShiftSpecified">
+            <summary>
+            Indicates whether <see cref="P:AlphaFramework.World.Components.Render.Shift"/> has been set to a non-default value.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.Render.Clone">
+            <summary>
+            Creates a shallow copy of this <see cref="T:AlphaFramework.World.Components.Render"/>
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Components.Render"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Components.StaticMesh">
+            <summary>
+            Represents a non-animated mesh loaded from a file.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="T:AlphaFramework.World.Components.TestSphere">
+            <summary>
+            Renders a simple (optionally textured) sphere for benchmarks, etc.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render"/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.TestSphere.Texture">
+            <summary>
+            The filename of the texture to place on the sphere.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Components.TestSphere.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Components.TestSphere.Radius">
+            <summary>
+            The radius of the sphere.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.TestSphere.Slices">
+            <summary>
+            The number of vertical slices to divide the sphere into.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.TestSphere.Stacks">
+            <summary>
+            The number of horizontal stacks to divide the sphere into.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Components.TestSphere.Alpha">
+            <summary>
+            The level of transparency from 0 (solid) to 255 (invisible),
+            256 for alpha channel, -256 for binary alpha channel, 257 for additive blending.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.IUniverse">
+            <summary>
+            A common base for all <see cref="T:AlphaFramework.World.UniverseBase`1"/> types.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.IUniverse.SourceFile">
+            <summary>
+            The map file this world was loaded from.
+            </summary>
+            <remarks>Is not serialized/stored, is set by whatever method loads the universe.</remarks>
+        </member>
+        <member name="M:AlphaFramework.World.IUniverse.Update(System.Double)">
+            <summary>
+            Updates the <see cref="T:AlphaFramework.World.UniverseBase`1"/> and all <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>s in it.
+            </summary>
+            <param name="elapsedGameTime">How much game time in seconds has elapsed since this method was last called.</param>
+        </member>
+        <member name="M:AlphaFramework.World.IUniverse.Save(System.String)">
+            <summary>
+            Saves this <see cref="T:AlphaFramework.World.UniverseBase`1"/> in a compressed XML file (map file).
+            </summary>
+            <param name="path">The file to save in.</param>
+            <exception cref="T:System.IO.IOException">A problem occurred while writing the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.IUniverse.Save">
+            <summary>
+            Overwrites the map file this <see cref="T:AlphaFramework.World.UniverseBase`1"/> was loaded from with the changed data.
+            </summary>
+            <exception cref="T:System.IO.IOException">A problem occurred while writing the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        </member>
+        <member name="T:AlphaFramework.World.Paths.IPathfinder`1">
+            <summary>
+            A strategy pattern interface for pathfinding algorithms.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="M:AlphaFramework.World.Paths.IPathfinder`1.FindPath(`0,`0)">
+            <summary>
+            Calculates a path from source to target coordinates.
+            </summary>
+            <param name="start">The starting coordinates.</param>
+            <param name="target">The end coordinates.</param>
+            <returns>A list of coordinates forming a path; <c>null</c> if no path was found.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Paths.StoredPath`1">
+            <summary>
+            Stores a path calculated by <see cref="P:AlphaFramework.World.UniverseBase`1.Pathfinder"/>.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+            <seealso cref="P:AlphaFramework.World.Positionables.EntityBase`2.CurrentPath"/>
+        </member>
+        <member name="P:AlphaFramework.World.Paths.StoredPath`1.Target">
+            <summary>
+            The final target of the pathfinding.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Paths.StoredPath`1.PathNodes">
+            <summary>
+            The path to walk.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Paths.StoredPath`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Paths.StoredPath`1.Clone">
+            <summary>
+            Creates a shallow copy of this <see cref="T:AlphaFramework.World.Paths.StoredPath`1"/>
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Paths.StoredPath`1"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Paths.SimplePathfinder">
+            <summary>
+            A simple A* pathfinder.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Paths.SimplePathfinder.#ctor(System.Boolean[0:,0:])">
+            <summary>
+            Initializes a new pathfinder.
+            </summary>
+            <param name="obstructionMap">A 2D map of obstructed (untraversable) fields.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Paths.SimplePathfinder.FindPath(SlimDX.Vector2,SlimDX.Vector2)">
+            <inheritdoc/>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.BenchmarkPoint`1">
+            <summary>
+            A marker that controls camera positions for the benchmark mode of the game.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.BenchmarkPoint`1.TestWater">
+            <summary>
+            Cycle through different water quality settings here (will take 3x as long).
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.BenchmarkPoint`1.TestParticleSystem">
+            <summary>
+            Cycle through particle system quality settings here (will take 2x as long).
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.CameraState`1">
+            <summary>
+            Stores the position and direction of the camera in the game.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.UniverseBase`1.CurrentCamera"/>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.CameraState`1.Radius">
+            <summary>
+            The camera's distance from the focused position.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.CameraState`1.Rotation">
+            <summary>
+            The horizontal rotation of the view direction in degrees.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.EntityBase`2">
+            <summary>
+            A common base class for <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/> whose behaviour and graphical representation is controlled by components.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+            <typeparam name="TTemplate">The specific type of <see cref="T:AlphaFramework.World.Templates.EntityTemplateBase`1"/> to use as a component container.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.EntityBase`2.TemplateName">
+            <summary>
+            The name of the <typeparamref name="TTemplate"/>.
+            </summary>
+            <remarks>
+            Setting this will overwrite <see cref="P:AlphaFramework.World.Positionables.EntityBase`2.TemplateData"/> with a new clone of the appropriate <typeparamref name="TTemplate"/>.
+            This is serialized/stored in map files. It is also serialized/stored in savegames, but the value is ignored there (due to the attribute order)!
+            </remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.EntityBase`2.TemplateData">
+            <summary>
+            The <typeparamref name="TTemplate"/> controlling the behavior and look for this <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/>.
+            </summary>
+            <remarks>
+            This is always a clone of the original <typeparamref name="TTemplate"/>.
+            This is serialized/stored in savegames but not in map files!
+            </remarks>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.EntityBase`2.MaskTemplateData">
+            <summary>
+            Makes all <see cref="P:AlphaFramework.World.Positionables.EntityBase`2.TemplateData"/> values return <c>null</c> until <see cref="M:System.IDisposable.Dispose"/> is called on the returned object. This is not thread-safe!
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.EntityBase`2.Update(System.Double)">
+            <summary>
+            Updates the position and other attributes of this entity.
+            </summary>
+            <param name="elapsedTime">How much game time in seconds has elapsed since this method was last called.</param>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.EntityBase`2.CurrentPath">
+            <summary>
+            The path this entity is currently walking along.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.EntityBase`2.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.EntityBase`2.Clone">
+            <summary>
+            Creates a deep copy of this <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/>.
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.ITemplated">
+            <summary>
+            An interface to elements that are based on a named template.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.ITemplated.TemplateName">
+            <summary>
+            The name of the template.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.IUpdateable">
+            <summary>
+            A <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/> that updates itself on each frame.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.IUpdateable.Update(System.Double)">
+            <summary>
+            Perform time-dependant state updates.
+            </summary>
+            <param name="elapsedTime">How much game time in seconds has elapsed since this method was last called.</param>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.Positionable`1">
+            <summary>
+            An object that can be positioned in the game world.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="E:AlphaFramework.World.Positionables.Positionable`1.Changed">
+            <summary>
+            Occurs when a property relevant for rendering has changed.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.Positionable`1.OnChanged">
+            <summary>
+            To be called when a property relevant for rendering has changed.
+            </summary>
+        </member>
+        <member name="E:AlphaFramework.World.Positionables.Positionable`1.ChangedRebuild">
+            <summary>
+            Occurs when a property has changed that requires visual representations to rebuilt from scratch (usually a template).
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.Positionable`1.OnChangedRebuild">
+            <summary>
+            To be called when a property has changed that requires visual representations to rebuilt from scratch (usually a template).
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Positionable`1.Name">
+            <summary>
+            Used for identification in scripts, debugging, etc.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.Positionable`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Positionable`1.Position">
+            <summary>
+            The <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>'s position.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Positionables.Positionable`1.Clone">
+            <summary>
+            Creates a deep copy of this <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>.
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Positionables.Water">
+            <summary>
+            A water plane spanning a certain part of the <see cref="T:AlphaFramework.World.Terrains.Terrain`1"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Water.EnginePosition">
+            <summary>
+            The position of origin for this water in the engine coordinate system.
+            </summary>
+            <remarks>
+            World X = Engine +X<br />
+            World Y = Engine -Z<br />
+            World height = Engine +Y
+            </remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Water.Size">
+            <summary>
+            The size of the area of the <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> this water plane spans.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Water.Height">
+            <summary>
+            The height of the water above reference zero.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Positionables.Water.TraversableDepth">
+            <summary>
+            The maximum depth an <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/> can walk into this water.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.CalculatingShadows">
+            <summary>
+              Looks up a localized string similar to Calculating shadows.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.CalculationNotComplete">
+            <summary>
+              Looks up a localized string similar to The calculation has not been completed yet..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.CoordinatesNotInRange">
+            <summary>
+              Looks up a localized string similar to The coordinates are not within terrain range..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.HeightMapSizeEqualTerrain">
+            <summary>
+              Looks up a localized string similar to The height-map size must be equal to the terrain size..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.InvalidMapSize">
+            <summary>
+              Looks up a localized string similar to The size of this texture map is incorrect..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.NotLoaded">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; has not been loaded yet..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.OcclusionIntervalMapSizeEqualTerrain">
+            <summary>
+              Looks up a localized string similar to The occlusion interval map size must be equal to the terrain size..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.TerrainDataNotLoaded">
+             <summary>
+               Looks up a localized string similar to The terrain data was not loaded correctly.
+            The file is probably damaged..
+             </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.TerrainSizeMultipleOfThree">
+            <summary>
+              Looks up a localized string similar to The terrain size must be a multiple of three..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.TerrainTextureColorNotFound">
+            <summary>
+              Looks up a localized string similar to A color in the texture-map has no according terrain class..
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Properties.Resources.TextureMapSizeThirdOfTerrain">
+            <summary>
+              Looks up a localized string similar to The texture-map size must be 1/3 of the terrain size..
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.SessionBase`1">
+            <summary>
+            A common base for game sessions (i.e. a game actually being played).
+            </summary>
+            <typeparam name="TUniverse">The specific type of <see cref="T:AlphaFramework.World.IUniverse"/> stored in the session.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.SessionBase`1.Universe">
+            <summary>
+            The current state of the game world.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.SessionBase`1.MapSourceFile">
+            <summary>
+            The filename of the map file the <see cref="P:AlphaFramework.World.SessionBase`1.Universe"/> was loaded from.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.SessionBase`1.#ctor">
+            <summary>
+             Base-constructor for XML serialization. Do not call manually!
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.SessionBase`1.#ctor(`0)">
+            <summary>
+            Creates a new game session based upon a given universe
+            </summary>
+            <param name="baseUniverse">The universe to base the new game session on.</param>
+        </member>
+        <member name="P:AlphaFramework.World.SessionBase`1.TimeWarpFactor">
+            <summary>
+            The factor by which <see cref="P:AlphaFramework.World.UniverseBase`1.GameTime"/> progression should be multiplied in relation to real time.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.SessionBase`1.Update(System.Double)">
+            <summary>
+            Updates the underlying <see cref="P:AlphaFramework.World.SessionBase`1.Universe"/>.
+            </summary>
+            <param name="elapsedRealTime">How much real time in seconds has elapsed since this method was last called.</param>
+            <returns>The elapsed game time (real time multiplied by <see cref="P:AlphaFramework.World.SessionBase`1.TimeWarpFactor"/>)</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Templates.EntityTemplateBase`1">
+            <summary>
+            A common base for entity templates (collection of components used as a prototype for constructing new entities). Defines the behavior and look for a certain class of <see cref="T:AlphaFramework.World.Positionables.EntityBase`2"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Render">
+            <summary>
+            Controls how this class of entities shall be rendered.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.EntityTemplateBase`1.Movement">
+            <summary>
+            Controls the basic movement parameters.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Templates.EntityTemplateBase`1.Clone">
+            <summary>
+            Creates a deep copy of this <see cref="T:AlphaFramework.World.Templates.EntityTemplateBase`1"/>.
+            </summary>
+            <returns>The cloned <see cref="T:AlphaFramework.World.Templates.EntityTemplateBase`1"/>.</returns>
+        </member>
+        <member name="T:AlphaFramework.World.Templates.Template`1">
+            <summary>
+            A set of data used as a prototype for constructing new objects at runtime.
+            </summary>
+            <typeparam name="TSelf">The type of the class itself.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.Template`1.Name">
+            <summary>
+            The name of this class. Used in map files as a reference. Must be unique and is case-sensitive!
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.Template`1.HighlightColor">
+            <summary>
+            The color to highlight this class with in list representations. <see cref="F:System.Drawing.Color.Empty"/> for no highlighting.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.Template`1.Description">
+            <summary>
+            A short English description of this class for developers.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Templates.Template`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Templates.Template`1.System#IComparable{TSelf}#CompareTo(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Templates.Template`1.Clone">
+            <summary>
+            Creates a deep copy of this <typeparamref name="TSelf"/>.
+            </summary>
+            <returns>The cloned <typeparamref name="TSelf"/>.</returns>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.Template`1.FileName">
+            <summary>
+            The XML file <see cref="T:AlphaFramework.World.Templates.Template`1"/> instances are stored in.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Templates.Template`1.All">
+            <summary>
+            A list of all loaded <see cref="T:AlphaFramework.World.Templates.Template`1"/>s.
+            </summary>
+            <seealso cref="M:AlphaFramework.World.Templates.Template`1.LoadAll"/>
+        </member>
+        <member name="M:AlphaFramework.World.Templates.Template`1.LoadAll">
+            <summary>
+            Loads the list of <see cref="T:AlphaFramework.World.Templates.Template`1"/>s from <see cref="P:AlphaFramework.World.Templates.Template`1.FileName"/>.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Terrains.ITerrain">
+            <summary>
+            A common base for all <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> types.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.Size">
+            <summary>
+            The size of the terrain.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.Center">
+            <summary>
+            The world coordinates of the center of the terrain.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.HeightMap">
+            <summary>
+            Direct access to the internal height-map array. Handle with care; clone when necessary!
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The height-map size is incorrect.</exception>
+            <remarks>Is not serialized/stored, is loaded by <see cref="M:AlphaFramework.World.Terrains.ITerrain.LoadHeightMap(System.IO.Stream)"/>.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMap">
+            <summary>
+            Direct access to the internal occlusion interval map array. Handle with care; clone when necessary!
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The size is incorrect.</exception>
+            <remarks>Is not serialized/stored, is loaded by <see cref="M:AlphaFramework.World.Terrains.ITerrain.LoadOcclusionIntervalMap(System.IO.Stream)"/>.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMapOutdated">
+            <summary>
+            Indicates that the data stored in <see cref="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMap"/> is outdated and should be recalculated using <see cref="T:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.TextureMap">
+            <summary>
+            Direct access to the internal height-map array. Handle with care; clone when necessary!
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The height-map size is incorrect.</exception>
+            <remarks>Is not serialized/stored, is loaded by <see cref="M:AlphaFramework.World.Terrains.ITerrain.LoadTextureMap(System.String)"/>.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.ITerrain.DataLoaded">
+            <summary>
+            Was the minimum necessary data for the terrain  (<see cref="P:AlphaFramework.World.Terrains.ITerrain.HeightMap"/> and <see cref="P:AlphaFramework.World.Terrains.ITerrain.TextureMap"/>) loaded already?
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.MarkUntraversableSlopes(System.Boolean[0:,0:],System.Int32)">
+            <summary>
+            Marks untraversable slopes in a pathfinding "obstruction map".
+            </summary>
+            <param name="obstructionMap">The existing pathfinding "obstruction map" to mark the untraversable slopes in.</param>
+            <param name="maxTraversableSlope">The maximum slope to considers traversable.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadHeightMap(System.IO.Stream)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.HeightMap"/> from a stream.
+            </summary>
+            <param name="stream">The stream to read the height-map from.</param>
+            <exception cref="T:System.IO.IOException">The height-map size is incorrect.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadHeightMap(System.String)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.HeightMap"/> from a file.
+            </summary>
+            <param name="path">The path of the PNG file to load the height-map from.</param>
+            <exception cref="T:System.IO.IOException">The texture-map size is incorrect.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadOcclusionIntervalMap(System.IO.Stream)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMap"/> from a stream.
+            </summary>
+            <param name="stream">The stream to read the occlusion interval map from.</param>
+            <exception cref="T:System.IO.IOException">The occlusion interval map size is incorrect.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadOcclusionIntervalMap(System.String)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMap"/> from a file.
+            </summary>
+            <param name="path">The path of the PNG file to load the occlusion interval map from.</param>
+            <exception cref="T:System.IO.IOException">The texture-map size is incorrect.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadTextureMap(System.IO.Stream)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.TextureMap"/> from a stream.
+            </summary>
+            <param name="stream">The stream to read the texture-map from.</param>
+            <exception cref="T:System.IO.IOException">The texture-map size is incorrect.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.ITerrain.LoadTextureMap(System.String)">
+            <summary>
+            Loads data for <see cref="P:AlphaFramework.World.Terrains.ITerrain.TextureMap"/> from a file.
+            </summary>
+            <param name="path">The path of the PNG file to load the texture-map from.</param>
+            <exception cref="T:System.IO.IOException">The texture-map size is incorrect.</exception>
+        </member>
+        <member name="T:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator">
+            <summary>
+            Generates an occlusion interval map from a height map for a <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> as a background task.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Terrains.ITerrain.OcclusionIntervalMap"/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.Result">
+            <summary>
+            Returns the calculated occlusion end map array once th calculation is complete.
+            </summary>
+            <remarks>A light rise angles is the minimum vertical angle (0 = 0°, 255 = 90°) which a directional light must achieve to be not occluded.</remarks>
+            <exception cref="T:System.InvalidOperationException">The calculation is not complete yet.</exception>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.#ctor(NanoByte.Common.Values.ByteGrid,System.Single,System.Single,System.Double)">
+            <summary>
+            Prepares to calculate an occlusion interval map for a height-map.
+            </summary>
+            <param name="heightMap">The height-map data. This is not cloned and must not be modified during calculation!</param>
+            <param name="stretchH">A factor by which the terrain is horizontally stretched.</param>
+            <param name="stretchV">A factor by which the terrain is vertically stretched.</param>
+            <param name="lightSourceInclination">The angle of inclination of the sun's path away from the horizon in degrees.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.FromTerrain(AlphaFramework.World.Terrains.ITerrain,System.Double)">
+            <summary>
+            Prepares to calculate an occlusion interval map for the height-map of a <see cref="T:AlphaFramework.World.Terrains.ITerrain"/>.
+            </summary>
+            <param name="terrain">The <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> providing the height-map. The height-map is not cloned and must not be modified during calculation!</param>
+            <param name="lightSourceInclination">The angle of inclination of the sun's path away from the horizon in degrees.</param>
+            <returns>The newly crated occlusion interval map generator.</returns>
+            <remarks>The results are not automatically written back to <paramref name="terrain"/>.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.CanCancel">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.UnitsByte">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.OcclusionIntervalMapGenerator.Execute">
+            <inheritdoc/>
+        </member>
+        <member name="T:AlphaFramework.World.Terrains.Terrain`1">
+            <summary>
+            This class contains a height-map-based Terrain including texturing and pathfinding data.
+            </summary>
+            <remarks>
+              The positive X-axis points towards east (the direction from which light sources in the sky rise),
+              the negative X-axis points towards west (the direction in which light sources in the sky set),
+              the positive Y-axis points towards north and
+              the negative Y-axis points towards south.
+            </remarks>
+            <typeparam name="TTemplate">The specific type of <see cref="T:AlphaFramework.World.Templates.Template`1"/> to use for storing information about terrain types.</typeparam>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.Size">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.Center">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.HeightMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.OcclusionIntervalMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.OcclusionIntervalMapOutdated">
+            <inheritdoc/>
+        </member>
+        <member name="F:AlphaFramework.World.Terrains.Terrain`1.Templates">
+            <summary>
+            The <typeparamref name="TTemplate"/>s available for usage in this <see cref="T:AlphaFramework.World.Terrains.ITerrain"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.TextureMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.DataLoaded">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.#ctor(AlphaFramework.World.Terrains.TerrainSize)">
+            <summary>
+            Creates a new terrain. It is completely flat and has only one texture initially.
+            </summary>
+            <param name="size">The size of the terrain to create.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.ToEngineCoords(SlimDX.Vector2)">
+            <summary>
+            Converts a position in world coordinates to the engine entity space coordinate system.
+            </summary>
+            <param name="coordinates">The coordinates of the point in engine world space to get information for.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.MarkUntraversableSlopes(System.Boolean[0:,0:],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.GetTerrainIndex(SlimDX.Vector2)">
+            <summary>
+            Determines the <typeparamref name="TTemplate"/> effective at specific coordinates.
+            </summary>
+            <param name="coordinates">The world coordinates to check.</param>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.Terrain`1.TemplateNames">
+            <summary>Used for XML serialization.</summary>
+            <seealso cref="F:AlphaFramework.World.Terrains.Terrain`1.Templates"/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.#ctor">
+            <summary>
+            Base-constructor for XML serialization. Do not call manually!
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadHeightMap(System.IO.Stream)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadHeightMap(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadOcclusionIntervalMap(System.IO.Stream)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadOcclusionIntervalMap(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadTextureMap(System.IO.Stream)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.Terrain`1.LoadTextureMap(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:AlphaFramework.World.Terrains.TerrainBrush">
+            <summary>
+            Describes a square or circle terrain area that is to be modified.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Terrains.TerrainBrush.Size">
+            <summary>
+            The length of the sqaure or the diameter of the circle.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Terrains.TerrainBrush.Circle">
+            <summary>
+            <c>true</c> if this is a circle, <c>false</c> if this is a sqaure.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainBrush.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Creates a new modification area.
+            </summary>
+            <param name="size">The length of the sqaure or the diameter of the circle.</param>
+            <param name="circle"><c>true</c> if this is a circle, <c>false</c> if this is a sqaure.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainBrush.Contains(System.Int32,System.Int32)">
+            <summary>
+            Checks whether specific 2D coordinates (relative to the top-left corner) lie within this modification area.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainBrush.Factor(System.Int32,System.Int32)">
+            <summary>
+            Provides a scaling factor depending on how close specific 2D coordinates (relative to the top-left corner) lie to the modification area center.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Terrains.TerrainSize">
+            <summary>
+            Contains information about the size of a <see cref="T:AlphaFramework.World.Terrains.ITerrain"/>.
+            </summary>
+            <seealso cref="P:AlphaFramework.World.Terrains.ITerrain.Size"/>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.TerrainSize.X">
+            <summary>
+            The size of the <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> along the X-axis.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.TerrainSize.Y">
+            <summary>
+            The size of the <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> along the Y-axis.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.TerrainSize.StretchH">
+            <summary>
+            A factor by which the <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> is horizontally stretched.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Terrains.TerrainSize.StretchV">
+            <summary>
+            A factor by which the <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> is vertically stretched.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainSize.#ctor(System.Int32,System.Int32,System.Single,System.Single)">
+            <summary>
+            Creates a new <see cref="T:AlphaFramework.World.Terrains.ITerrain"/> point information struct.
+            </summary>
+            <param name="x">The size along the x-axis.</param>
+            <param name="y">The size along the y-axis.</param>
+            <param name="stretchH">A factor by which the terrain is horizontally stretched.</param>
+            <param name="stretchV">A factor by which the terrain is vertically stretched.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainSize.op_Implicit(System.Drawing.Size)~AlphaFramework.World.Terrains.TerrainSize">
+            <summary>
+            Convert <see cref="T:System.Drawing.Size"/> into <see cref="T:AlphaFramework.World.Terrains.TerrainSize"/>.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainSize.op_Implicit(AlphaFramework.World.Terrains.TerrainSize)~System.Drawing.Size">
+            <summary>
+            Convert <see cref="T:AlphaFramework.World.Terrains.TerrainSize"/> into <see cref="T:System.Drawing.Size"/>.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Terrains.TerrainSize.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:AlphaFramework.World.Parallel">
+             <summary>
+             A lightweight implementation of a small subset of Microsoft's Parallel Extensions for
+             .Net 3.5/4.0 that can be used with the earlier .Net/C# 2.0
+             </summary>
+             <remarks>
+             This is an analogue of "Microsoft Parallel Extensions to .NET Framework 3.5, June
+             2008 Community Technology Preview" from:
+             http://www.microsoft.com/downloads/details.aspx?FamilyID=348f73fd-593d-4b3c-b055-694c50d2b0f3&amp;DisplayLang=en
+             It is not a full implementation, and should be deprecated when MEDIT switch to
+             Visual Studio 2010/.Net 4.0 by using the Microsoft/Novell Mono equivalents.
+             Mono already supports the Parallel Extensions.
+            
+             This class supports the Parallel.For and Parallel.ForEach loop constructs.
+            
+             See also:
+             http://tirania.org/blog/archive/2008/Jul-26-1.html
+             http://blogs.msdn.com/somasegar/archive/2008/06/02/june-2008-ctp-parallel-extensions-to-the-net-fx.aspx
+            
+             This should work on any version of C#/.Net that supports generics.
+             </remarks>
+        </member>
+        <member name="T:AlphaFramework.World.Parallel.WorkerThread">
+            <summary>
+            Background thread definition.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.WorkerThread.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AlphaFramework.World.Parallel.WorkerThread"/> class.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.WorkerThread.Terminate">
+            <summary>
+            Wait for thread termination and close events.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.WorkerThread.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources
+            </summary>
+            <param name="disposing">if set to <c>true</c>, dispose managed resources.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.WorkerThread.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.Parallel.WorkerThread.Thread">
+            <summary>
+            Gets or sets the thread.
+            </summary>
+            <value>The thread.</value>
+        </member>
+        <member name="P:AlphaFramework.World.Parallel.WorkerThread.TaskWaiting">
+            <summary>
+            Gets the task waiting message event.
+            </summary>
+            <value>The task waiting.</value>
+        </member>
+        <member name="P:AlphaFramework.World.Parallel.WorkerThread.ThreadIdle">
+            <summary>
+            Gets the thread idle message event.
+            </summary>
+            <value>The thread idle.</value>
+        </member>
+        <member name="T:AlphaFramework.World.Parallel.ParallelFor">
+            <summary>
+            Parallel For state class.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.instance">
+            <summary>
+            Single instance of parallelFor class for singleton pattern
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.LoopFunction">
+            <summary>
+            For-loop body
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.CancellationToken">
+            <summary>
+            For-loop body
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.currentJobIndex">
+            <summary>
+            Current loop index
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.stopIndex">
+            <summary>
+            Stop loop index
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.threadCount">
+            <summary>
+            Number of threads to utilise
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelFor.workerThreads">
+            <summary>
+            The worker threads.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelFor.DoFor(System.Int32,System.Int32,System.Action{System.Int32},NanoByte.Common.Tasks.CancellationToken)">
+            <summary>
+            Runs the For loop.
+            </summary>
+            <param name="start">The start.</param>
+            <param name="stop">The stop.</param>
+            <param name="loopBody">The loop body.</param>
+            <param name="cancellationToken">Used to signal if the user wishes to cancel the loop before it completes.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelFor.GetInstance(System.Int32)">
+            <summary>
+            Get instance of the ParallelFor class for singleton pattern and
+            update the number of threads if appropriate.
+            </summary>
+            <param name="threadCount">The thread count.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelFor.Dispose(System.Boolean)">
+            <summary>
+            Disposes resources.
+            </summary>
+            <param name="disposing">if set to <c>true</c>, dispose managed resources.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelFor.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:AlphaFramework.World.Parallel.ParallelForEach`1">
+            <summary>
+            ParallelForEach state class.
+            </summary>
+            <typeparam name="T">type</typeparam>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelForEach`1.instance">
+            <summary>
+            Single instance of parallelFor class for singleton pattern
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelForEach`1.LoopFunction">
+            <summary>
+            Foreach-loop body
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelForEach`1.enumerator">
+            <summary>
+            Enumerator for the source IEnumerable.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelForEach`1.threadCount">
+            <summary>
+            Number of threads to utilise
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.ParallelForEach`1.workerThreads">
+            <summary>
+            The worker threads.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelForEach`1.DoForEach(System.Collections.Generic.IEnumerable{`0},System.Action{`0})">
+            <summary>
+            Runs the ForEach loop.
+            </summary>
+            <param name="items">The items.</param>
+            <param name="loopBody">The loop body.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelForEach`1.GetInstance(System.Int32)">
+            <summary>
+            Get instance of the ParallelFor class for singleton pattern and
+            update the number of threads if appropriate.
+            </summary>
+            <param name="threadCount">The thread count.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelForEach`1.Dispose(System.Boolean)">
+            <summary>
+            Disposes resources.
+            </summary>
+            <param name="disposing">if set to <c>true</c>, dispose managed resources.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ParallelForEach`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.lockObject">
+            <summary>
+            Object for thread locking
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.World.Parallel.threadCount">
+            <summary>
+            Number of threads to utilise
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:AlphaFramework.World.Parallel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.Dispose(System.Boolean)">
+            <summary>
+            Disposes resources.
+            </summary>
+            <param name="disposing">if set to <c>true</c>, dispose managed resources.</param>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.For(System.Int32,System.Int32,System.Action{System.Int32},NanoByte.Common.Tasks.CancellationToken)">
+            <summary>
+            Executes a parallel For loop.
+            </summary>
+            <param name="start">Loop start index.</param>
+            <param name="stop">Loop stop index.</param>
+            <param name="loopBody">Loop body.</param>
+            <param name="cancellationToken">Used to signal if the user wishes to cancel the loop before it completes.</param>
+            <remarks>The method is used to parallelise for loop by running iterations across
+            several threads.
+            Example usage:
+            <code>
+            for ( int i = 0; i &lt; 10; i++ )
+            {
+              System.Diagnostics.Debug.WriteLine( "i = " + i );
+            }
+            </code>
+            can be replaced by:
+            <code>
+            Parallel.For( 0, 10, delegate( int i )
+            {
+              System.Diagnostics.Debug.WriteLine( "i = " + i );
+            } );
+            </code>
+            If <c>Parallel.ThreadCount</c> is exactly <c>1</c>, no threads are spawned.
+            </remarks>
+        </member>
+        <member name="M:AlphaFramework.World.Parallel.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Executes a parallel Foreach loop.
+            </summary>
+            <typeparam name="T">type</typeparam>
+            <param name="items">Loop items.</param>
+            <param name="loopBody">Loop body.</param>
+            <remarks>The method is used to parallelise for loop by running iterations across
+            several threads.
+            Example usage:
+            <code>
+            foreach ( Molecule molecule in molecules )
+            {
+            System.Diagnostics.Debug.WriteLine( "molecule.Title = " + molecule.Title );
+            }
+            </code>
+            can be replaced by:
+            <code>
+            Parallel.ForEach{Molecule}( molecules, delegate( Molecule molecule )
+            {
+            System.Diagnostics.Debug.WriteLine( "molecule.Title = " + molecule.Title );
+            } );
+            </code>
+            If <c>Parallel.ThreadCount</c> is exactly <c>1</c>, no threads are spawned.
+            </remarks>
+        </member>
+        <member name="P:AlphaFramework.World.Parallel.ThreadsCount">
+            <summary>
+            Gets or sets the number of threads used for parallel computations.
+            </summary>
+            <value>The threads count.</value>
+            <remarks>
+            By default the property is number of CPUs, i.e.,
+            <see cref="P:System.Environment.ProcessorCount"/>. Setting the
+            property to zero also causes it to be reset to this value.
+            </remarks>
+        </member>
+        <member name="T:AlphaFramework.World.UniverseBase`1">
+            <summary>
+            A common base for game worlds (but not a running game). Equivalent to the content of a map file.
+            </summary>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="E:AlphaFramework.World.UniverseBase`1.SkyboxChanged">
+            <summary>
+            Occurs when <see cref="P:AlphaFramework.World.UniverseBase`1.Skybox"/> was changed.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.GameTime">
+            <summary>
+            Total elapsed game time in seconds.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.Positionables">
+            <summary>
+            A collection of all <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>s in this <see cref="T:AlphaFramework.World.UniverseBase`1"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.Pathfinder">
+            <summary>
+            The pathfinding engine used to navigate <see cref="P:AlphaFramework.World.UniverseBase`1.Positionables"/>.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.Skybox">
+            <summary>
+            The name of the skybox to use for this map; may be <c>null</c> or empty.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.CurrentCamera">
+            <summary>
+            The current position and direction of the camera in the game.
+            </summary>
+            <remarks>This is updated only when leaving the game, not continuously.</remarks>
+        </member>
+        <member name="P:AlphaFramework.World.UniverseBase`1.SourceFile">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.UniverseBase`1.Update(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.UniverseBase`1.Update(AlphaFramework.World.Positionables.IUpdateable,System.Double)">
+            <summary>
+            Updates a single <see cref="T:AlphaFramework.World.Positionables.IUpdateable"/>.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.World.UniverseBase`1.Save(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.World.UniverseBase`1.Save">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

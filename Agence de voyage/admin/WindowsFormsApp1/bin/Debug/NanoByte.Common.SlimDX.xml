@@ -1,0 +1,1883 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NanoByte.Common.SlimDX</name>
+    </assembly>
+    <members>
+        <member name="T:NanoByte.Common.Storage.SlimDX.XmlStorage">
+            <summary>
+            Provides easy serialization to XML files (optionally wrapped in ZIP archives).
+            </summary>
+            <remarks>This class only serializes public properties.</remarks>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.XmlStorage.XsiNamespace">
+            <summary>
+            The XML namespace used for XML Schema instance.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.XmlStorage._serializers">
+            <summary>An internal cache of XML serializers identified by the target type and ignored sub-types.</summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.XmlStorage._asAttribute">
+            <summary>Used to mark something as "serialize as XML attribute".</summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.XmlStorage._ignore">
+            <summary>Used to mark something to be ignored when serializing.</summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.CreateSerializer(System.Type)">
+            <summary>
+            Creates a new <see cref="T:System.Xml.Serialization.XmlSerializer"/> for the type <paramref name="type"/> and applies a set of default augmentations for .NET types.
+            </summary>
+            <param name="type">The type to create the serializer for.</param>
+            <returns>The newly created <see cref="T:System.Xml.Serialization.XmlSerializer"/>.</returns>
+            <remarks>This method may be rather slow, so its results should be cached.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.MembersAsAttributes``1(System.Xml.Serialization.XmlAttributeOverrides,System.String[])">
+            <summary>
+            Configures a set of members of a type to be serialized as XML attributes.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.LoadXml``1(System.IO.Stream)">
+            <summary>
+            Loads an object from an XML file.
+            </summary>
+            <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+            <param name="stream">The stream to read the encoded XML data from.</param>
+            <returns>The loaded object.</returns>
+            <exception cref="T:System.IO.InvalidDataException">A problem occurred while deserializing the XML data.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.LoadXml``1(System.String)">
+            <summary>
+            Loads an object from an XML file.
+            </summary>
+            <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+            <param name="path">The path of the file to load.</param>
+            <returns>The loaded object.</returns>
+            <exception cref="T:System.IO.IOException">A problem occurred while reading the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+            <exception cref="T:System.IO.InvalidDataException">A problem occurred while deserializing the XML data.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.FromXmlString``1(System.String)">
+            <summary>
+            Loads an object from an XML string.
+            </summary>
+            <typeparam name="T">The type of object the XML string shall be converted into.</typeparam>
+            <param name="data">The XML string to be parsed.</param>
+            <returns>The loaded object.</returns>
+            <exception cref="T:System.IO.InvalidDataException">A problem occurred while deserializing the XML data.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.SaveXml``1(``0,System.IO.Stream,System.String)">
+            <summary>
+            Saves an object in an XML stream ending with a line break.
+            </summary>
+            <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+            <param name="data">The object to be stored.</param>
+            <param name="stream">The stream to write the encoded XML data to.</param>
+            <param name="stylesheet">The path of an XSL stylesheet for <typeparamref name="T"/>; can be <see langword="null"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.SaveXml``1(``0,System.String,System.String)">
+            <summary>
+            Saves an object in an XML file ending with a line break.
+            </summary>
+            <remarks>This method performs an atomic write operation when possible.</remarks>
+            <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+            <param name="data">The object to be stored.</param>
+            <param name="path">The path of the file to write.</param>
+            <param name="stylesheet">The path of an XSL stylesheet for <typeparamref name="T"/>; can be <see langword="null"/>.</param>
+            <exception cref="T:System.IO.IOException">A problem occurred while writing the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.ToXmlString``1(``0,System.String)">
+            <summary>
+            Returns an object as an XML string ending with a line break.
+            </summary>
+            <typeparam name="T">The type of object to be saved in an XML string.</typeparam>
+            <param name="data">The object to be stored.</param>
+            <param name="stylesheet">The path of an XSL stylesheet for <typeparamref name="T"/>; can be <see langword="null"/>.</param>
+            <returns>A string containing the XML code.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.LoadXmlZip``1(System.IO.Stream,System.String,NanoByte.Common.Storage.SlimDX.EmbeddedFile[])">
+            <summary>
+            Loads an object from an XML file embedded in a ZIP archive.
+            </summary>
+            <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+            <param name="stream">The ZIP archive to load.</param>
+            <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+            <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read.</param>
+            <returns>The loaded object.</returns>
+            <exception cref="T:ICSharpCode.SharpZipLib.Zip.ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
+            <exception cref="T:System.IO.InvalidDataException">A problem occurred while deserializing the XML data.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.LoadXmlZip``1(System.String,System.String,NanoByte.Common.Storage.SlimDX.EmbeddedFile[])">
+            <summary>
+            Loads an object from an XML file embedded in a ZIP archive.
+            </summary>
+            <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+            <param name="path">The ZIP archive to load.</param>
+            <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+            <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read.</param>
+            <returns>The loaded object.</returns>
+            <exception cref="T:System.IO.IOException">A problem occurred while reading the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+            <exception cref="T:ICSharpCode.SharpZipLib.Zip.ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
+            <exception cref="T:System.IO.InvalidDataException">A problem occurred while deserializing the XML data.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.SaveXmlZip``1(``0,System.IO.Stream,System.String,NanoByte.Common.Storage.SlimDX.EmbeddedFile[])">
+            <summary>
+            Saves an object in an XML file embedded in a ZIP archive.
+            </summary>
+            <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+            <param name="data">The object to be stored.</param>
+            <param name="stream">The ZIP archive to be written.</param>
+            <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+            <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; can be <see langword="null"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.XmlStorage.SaveXmlZip``1(``0,System.String,System.String,NanoByte.Common.Storage.SlimDX.EmbeddedFile[])">
+            <summary>
+            Saves an object in an XML file embedded in a ZIP archive.
+            </summary>
+            <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+            <param name="data">The object to be stored.</param>
+            <param name="path">The ZIP archive to be written.</param>
+            <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+            <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; can be <see langword="null"/>.</param>
+            <exception cref="T:System.IO.IOException">A problem occurred while writing the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        </member>
+        <member name="T:NanoByte.Common.Storage.SlimDX.ContentArchiveEntry">
+            <summary>
+            Represents a file in a content archive.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.ContentArchiveEntry.ZipFile">
+            <summary>
+            The archive containing the file.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.ContentArchiveEntry.ZipEntry">
+            <summary>
+            The actual content file.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentArchiveEntry.#ctor(ICSharpCode.SharpZipLib.Zip.ZipFile,ICSharpCode.SharpZipLib.Zip.ZipEntry)">
+            <summary>
+            Creates a new content file representation
+            </summary>
+            <param name="zipFile">The archive containing the file</param>
+            <param name="zipEntry">The actual content file</param>
+        </member>
+        <member name="T:NanoByte.Common.Storage.SlimDX.ContentManager">
+            <summary>
+            Provides a virtual file system for combining data from multiple directories and archives (useful for modding).
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.ContentManager.ArchiveFileExt">
+            <summary>
+            The file extensions of content archives.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameBaseDir">
+            <summary>
+            The name of an environment variable that can be used to configure the content manager externally.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameBaseArchives">
+            <summary>
+            The name of an environment variable that can be used to configure the content manager externally.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameModDir">
+            <summary>
+            The name of an environment variable that can be used to configure the content manager externally.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNamerModArchives">
+            <summary>
+            The name of an environment variable that can be used to configure the content manager externally.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.ContentManager.BaseDir">
+            <summary>
+            The base directory where all the content files are stored; should not be <see langword="null"/>.
+            </summary>
+            <remarks>Can be set externally with <see cref="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameBaseDir"/>.</remarks>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The specified directory could not be found.</exception>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir">
+            <summary>
+            A directory overriding the base directory for creating mods; can be <see langword="null"/>.
+            </summary>
+            <remarks>Can be set externally with <see cref="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameModDir"/>.</remarks>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The specified directory could not be found.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.LoadArchives">
+            <summary>
+            Loads any <see cref="F:NanoByte.Common.Storage.SlimDX.ContentManager.ArchiveFileExt"/> archives in <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.BaseDir"/> and <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir"/> or specified by <see cref="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNameBaseArchives"/> or <see cref="F:NanoByte.Common.Storage.SlimDX.ContentManager.EnvVarNamerModArchives"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.CloseArchives">
+            <summary>
+            Closes the content archives loaded by <see cref="M:NanoByte.Common.Storage.SlimDX.ContentManager.LoadArchives"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.CreateDirPath(System.String)">
+            <summary>
+            Creates a path for a content directory (using the <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir"/> if available).
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <returns>The absolute path to the requested directory.</returns>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The specified directory could not be found.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.CreateFilePath(System.String,System.String)">
+            <summary>
+            Creates a path for a content file (using <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir"/> if available).
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="id">The file name of the content.</param>
+            <returns>The absolute path to the requested content file.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.FileExists(System.String,System.String,System.Boolean)">
+            <summary>
+            Checks whether a certain content file exists.
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="id">The file name of the content.</param>
+            <param name="searchArchives">Whether to search for the file in archives as well.</param>
+            <returns><see langword="true"/> if the requested content file exists.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.AddFileToList(NanoByte.Common.Collections.NamedCollection{NanoByte.Common.Storage.SlimDX.FileEntry},System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a specific file to the <paramref name="files"/> list.
+            </summary>
+            <param name="files">The collection to add the file to.</param>
+            <param name="type">The type-subdirectory the file belongs to.</param>
+            <param name="name">The file name to be added to the list.</param>
+            <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.AddDirectoryToList(NanoByte.Common.Collections.NamedCollection{NanoByte.Common.Storage.SlimDX.FileEntry},System.String,System.String,System.IO.DirectoryInfo,System.String,System.Boolean)">
+            <summary>
+            Recursively finds all files in <paramref name="directory"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> list.
+            </summary>
+            <param name="files">The collection to add the found files to.</param>
+            <param name="type">The type-subdirectory the files belong to.</param>
+            <param name="extension">The file extension to look for.</param>
+            <param name="directory">The directory to look in.</param>
+            <param name="prefix">A prefix to add before the file name in the list (used to indicate current sub-directory).</param>
+            <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.AddArchivesToList(NanoByte.Common.Collections.NamedCollection{NanoByte.Common.Storage.SlimDX.FileEntry},System.String,System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,NanoByte.Common.Storage.SlimDX.ContentArchiveEntry}},System.Boolean)">
+            <summary>
+            Finds all files in <paramref name="archiveData"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> collection
+            </summary>
+            <param name="files">The collection to add the found files to.</param>
+            <param name="extension">The file extension to look for.</param>
+            <param name="type">The type-subdirectory to look in.</param>
+            <param name="archiveData">The archive data list to look in.</param>
+            <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.GetFileList(System.String,System.String)">
+            <summary>
+            Gets a list of all files of a certain type
+            </summary>
+            <param name="type">The type of files you want (e.g. Textures, Sounds, ...)</param>
+            <param name="extension">The file extension to so search for</param>
+            <returns>An collection of strings with file IDs</returns>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.GetFilePath(System.String,System.String)">
+            <summary>
+            Gets the file path for a content file (does not search in archives)
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="id">The file name of the content.</param>
+            <returns>The absolute path to the requested content file</returns>
+            <exception cref="T:System.IO.FileNotFoundException">The specified file could not be found.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.GetFileStream(System.String,System.String)">
+            <summary>
+            Gets a reading stream for a content file (searches in archives)
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="id">The file name of the content.</param>
+            <returns>The absolute path to the requested content file</returns>
+            <exception cref="T:System.IO.FileNotFoundException">The specified file could not be found.</exception>
+            <exception cref="T:System.IO.IOException">There was an error reading the file.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.ContentManager.DeleteModFile(System.String,System.String)">
+            <summary>
+            Deletes a file in <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir"/>. Will not touch files in archives or in <see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.BaseDir"/>.
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="id">The file name of the content.</param>
+            <exception cref="T:System.InvalidOperationException"><see cref="P:NanoByte.Common.Storage.SlimDX.ContentManager.ModDir"/> is not set.</exception>
+            <exception cref="T:System.IO.FileNotFoundException">The specified file could not be found.</exception>
+            <exception cref="T:System.IO.IOException">The specified file could not be deleted.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">You have insufficient rights to delete the file.</exception>
+        </member>
+        <member name="T:NanoByte.Common.Storage.SlimDX.EmbeddedFile">
+            <summary>
+            Information about an additional file to be stored along side an ZIP archive using <see cref="T:NanoByte.Common.Storage.XmlStorage"/> or <see cref="T:NanoByte.Common.Storage.BinaryStorage"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.EmbeddedFile.Filename">
+            <summary>
+            The filename in the archive
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.EmbeddedFile.CompressionLevel">
+            <summary>
+            The level of compression (0-9) to apply to this entry
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.EmbeddedFile.StreamDelegate">
+            <summary>
+            The delegate to be called when the data is ready to be read/written to/form a stream
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.EmbeddedFile.#ctor(System.String,System.Action{System.IO.Stream})">
+            <summary>
+            Creates a new XML ZIP entry for reading
+            </summary>
+            <param name="filename">The filename in the archive</param>
+            <param name="readDelegate">The delegate to be called when the data is ready to be read</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.EmbeddedFile.#ctor(System.String,System.Int32,System.Action{System.IO.Stream})">
+            <summary>
+            Creates a new XML ZIP entry for writing
+            </summary>
+            <param name="filename">The filename in the archive</param>
+            <param name="compressionLevel">The level of compression (0-9) to apply to this entry</param>
+            <param name="writeDelegate">The delegate to be called when the data is ready to be written</param>
+        </member>
+        <member name="T:NanoByte.Common.Storage.SlimDX.FileEntryType">
+            <seealso cref="P:NanoByte.Common.Storage.SlimDX.FileEntry.EntryType"/>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Normal">
+            <summary>The file is present in the main game and was not modified by a mod.</summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Modified">
+            <summary>The file is present in the main game and was modified/overwritten by a mod.</summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Added">
+            <summary>The file is not present in the main game and was added by a mod.</summary>
+        </member>
+        <member name="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Deleted">
+            <summary>The file was originally added by a mod but has now been deleted.</summary>
+        </member>
+        <member name="T:NanoByte.Common.Storage.SlimDX.FileEntry">
+            <summary>
+            Describes a file returned by <see cref="M:NanoByte.Common.Storage.SlimDX.ContentManager.GetFileList(System.String,System.String)"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.FileEntry.FileType">
+            <summary>
+            The type of file (e.g. Textures, Sounds, ...).
+            </summary>
+            <remarks>This is only used for file operations and not for sorting!</remarks>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.FileEntry.Name">
+            <summary>
+            The relative file path.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.FileEntry.EntryType">
+            <summary>
+            The kind of file entry this is (in relation to its mod status).
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Storage.SlimDX.FileEntry.HighlightColor">
+            <summary>
+            The color to highlight this file entry with in list representations.
+            <see cref="F:System.Drawing.Color.Empty"/> for <see cref="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Normal"/> (no highlighting).
+            <see cref="P:System.Drawing.Color.Blue"/> for <see cref="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Modified"/>.
+            <see cref="P:System.Drawing.Color.Green"/> for <see cref="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Added"/>.
+            <see cref="P:System.Drawing.Color.Red"/> for <see cref="F:NanoByte.Common.Storage.SlimDX.FileEntryType.Deleted"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.FileEntry.#ctor(System.String,System.String,NanoByte.Common.Storage.SlimDX.FileEntryType)">
+            <summary>
+            Creates a new file entry.
+            </summary>
+            <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+            <param name="name">The relative file path.</param>
+            <param name="entryType">The kind of file entry this is (in relation to its mod status).</param>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.FileEntry.GetContextMenu">
+            <summary>
+            Returns the context menu for this file entry; can be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.FileEntry.Equals(NanoByte.Common.Storage.SlimDX.FileEntry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.FileEntry.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Storage.SlimDX.FileEntry.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Arguments">
+            <summary>
+            An immutable class representing command-line arguments passed to an application.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Arguments.ToString">
+            <summary>
+            Returns the arguments stored in this instance.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Arguments.Files">
+            <summary>
+            A list of all file names in the arguments.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Arguments.Commands">
+            <summary>
+            A list of all commands without leading slash or hyphen in the arguments.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Arguments.Item(System.String)">
+            <summary>
+            Gets the options for a specific command in the arguments.
+            </summary>
+            <param name="command">The command to get the options for.</param>
+            <returns>The options for <paramref name="command"/> if any; null otherwise.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Arguments.IsCommand(System.String)">
+            <returns><see langword="true"/> if <paramref name="value"/> starts with a slash or a hyphen.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Arguments.#ctor(System.String[])">
+            <summary>
+            Creates a new arguments instance based on the argument array from a Main method.
+            </summary>
+            <param name="args">The array of arguments.</param>
+        </member>
+        <member name="M:NanoByte.Common.Arguments.Contains(System.String)">
+            <summary>
+            Determines whether a specific command is contained in the arguments.
+            </summary>
+            <param name="command">The command to check for.</param>
+            <returns>True if the command was set; false otherwise.</returns>
+        </member>
+        <member name="T:NanoByte.Common.Collections.IPoolable`1">
+            <summary>
+            An interface items must implement to be addable to <see cref="T:NanoByte.Common.Collections.Pool`1"/>. Poolable items directly store a reference to their successor.
+            </summary>
+            <typeparam name="T">The type of items to store in <see cref="T:NanoByte.Common.Collections.Pool`1"/>.</typeparam>
+        </member>
+        <member name="P:NanoByte.Common.Collections.IPoolable`1.NextElement">
+            <summary>
+            A reference to the next element in the <see cref="T:NanoByte.Common.Collections.Pool`1"/> chain.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Collections.Pool`1">
+            <summary>
+            A very fast pseudo-collection (it does not implement <see cref="T:System.Collections.Generic.IEnumerable`1"/>) that supports fast adding at the beginning.
+            </summary>
+            <remarks>An item can always only be in one pool at any given time.</remarks>
+            <typeparam name="T">The type of items to store in the pool.</typeparam>
+        </member>
+        <member name="P:NanoByte.Common.Collections.Pool`1.Count">
+            <summary>
+            Gets the number of elements contained in the pool
+            </summary>
+            <returns>The number of elements contained in the pool</returns>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.ForEach(System.Action{`0})">
+            <summary>
+            Performs the specified action on each element of the pool
+            </summary>
+            <param name="action">A delegate to perform on each element of the pool</param>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.Add(`0)">
+            <summary>
+            Adds an item to the beginning pool
+            </summary>
+            <param name="item">The object to add to the pool</param>
+            <exception cref="T:System.ArgumentException"><paramref name="item"/> is already in a pool.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.Remove(`0)">
+            <summary>
+            Removes the first occurrence of a specific object from the pool
+            </summary>
+            <param name="item">The object to remove from the pool</param>
+            <returns><see langword="true"/> if <paramref name="item" /> was successfully removed from the buffer list; otherwise, false. This method also returns <see langword="false"/> if <paramref name="item" /> is not found in the original pool</returns>
+            <remarks>Not all too fast, try to avoid using this</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.Clear">
+            <summary>
+            Removes all items from the pool
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.Contains(`0)">
+            <summary>
+            Determines whether the pool contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the pool</param>
+            <returns><see langword="true"/> if <paramref name="item" /> is found in the pool; otherwise, false.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.RemoveAll(System.Action{`0})">
+            <summary>
+            Removes all the items in the buffer one-by-one, executing <paramref name="action"/> after each removal.
+            </summary>
+            <param name="action">A delegate that is executed right after an item is removed.</param>
+            <remarks>Ideal for moving all elements to a new data structure.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.RemoveWhere(System.Predicate{`0})">
+            <summary>
+            Removes all the items in the buffer that satisfy the condition defined by <paramref name="predicate"/>.
+            </summary>
+            <param name="predicate">A delegate that defines the condition to check for.</param>
+            <remarks>Ideal for selectively picking all suitable elements from the pool.</remarks>
+        </member>
+        <member name="M:NanoByte.Common.Collections.Pool`1.RemoveFirst(System.Predicate{`0})">
+            <summary>
+            Removes the first item in the buffer that satisfies the condition defined by <paramref name="predicate"/>.
+            </summary>
+            <param name="predicate">A delegate that defines the condition to check for.</param>
+            <remarks>Ideal for selectively picking the first suitable element from the pool.</remarks>
+        </member>
+        <member name="T:NanoByte.Common.Controls.AngleControl">
+            <summary>
+            Allows the input of angles between 0 and 360 degrees by clicking in a circle.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.AngleControl.Angle">
+            <summary>
+            The angle between 0 and 360 degrees.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Controls.AngleControl.Range">
+            <summary>
+            An optional limit to the valid degree values. (Limits beyond 0° and 360° are ignored.)
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AngleControl.GetAngle(System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Calculates the angle of a vector pointing from <paramref name="p1"/> to <paramref name="p2"/>.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Controls.AsyncWaitDialog">
+            <summary>
+            Displays a "Loading..." dialog box in a separate GUI thread for cases where the main message pump is blocked.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.AsyncWaitDialog._handleReady">
+            <summary>A barrier that blocks threads until the window handle is ready.</summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AsyncWaitDialog.#ctor(System.String,System.Drawing.Icon)">
+            <summary>
+            Creates a new asynchrnous waiting dialog.
+            </summary>
+            <param name="title">The title of th dialog to display.</param>
+            <param name="icon">The icon for the dialog to display in the task bar; can be <see langword="null"/>.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AsyncWaitDialog.Start">
+            <summary>
+            Starts a new message pump with this dialog in a new thread.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AsyncWaitDialog.Stop">
+            <summary>
+            Closes the dialog and stops the separate message pump.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Controls.AsyncWaitDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AsyncWaitDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NanoByte.Common.Controls.AsyncWaitDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.ColorUtils">
+            <summary>
+            Convert colors to different formats, interpolate, invert, ...
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.ColorUtils.EqualsIgnoreAlpha(System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Compares two colors ignoring the alpha channel and the name
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.ColorUtils.Interpolate(System.Single,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Interpolates between two colors
+            </summary>
+            <param name="factor">The proportion of the two colors between 0 (only first color) and 1 (only second color)</param>
+            <param name="color1">The first color value</param>
+            <param name="color2">The second color value</param>
+        </member>
+        <member name="T:NanoByte.Common.MathUtils">
+            <summary>
+            Designed to keep other code clean of messy spaghetti code required for some math operations.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.MathUtils._sqrtThreeThirds">
+            <summary>
+            Pseudo-constant containing the value of sqrt(3)/3
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Clamp(System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Makes a value stay within a certain range
+            </summary>
+            <param name="value">The number to clamp</param>
+            <param name="min">The minimum number to return</param>
+            <param name="max">The maximum number to return</param>
+            <returns>The <paramref name="value"/> if it was in range, otherwise <paramref name="min"/> or <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Clamp(System.Double,System.Double,System.Double)">
+            <summary>
+            Makes a value stay within a certain range
+            </summary>
+            <param name="value">The number to clamp</param>
+            <param name="min">The minimum number to return</param>
+            <param name="max">The maximum number to return</param>
+            <returns>The <paramref name="value"/> if it was in range, otherwise <paramref name="min"/> or <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Clamp(System.Single,System.Single,System.Single)">
+            <summary>
+            Makes a value stay within a certain range
+            </summary>
+            <param name="value">The number to clamp</param>
+            <param name="min">The minimum number to return</param>
+            <param name="max">The maximum number to return</param>
+            <returns>The <paramref name="value"/> if it was in range, otherwise <paramref name="min"/> or <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Clamp(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Makes a value stay within a certain range
+            </summary>
+            <param name="value">The number to clamp</param>
+            <param name="min">The minimum number to return</param>
+            <param name="max">The maximum number to return</param>
+            <returns>The <paramref name="value"/> if it was in range, otherwise <paramref name="min"/> or <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Modulo(System.Double,System.Double)">
+            <summary>
+            Calculates a modulus (always positive).
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Modulo(System.Single,System.Single)">
+            <summary>
+            Calculates a modulus (always positive).
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Modulo(System.Int32,System.Int32)">
+            <summary>
+            Calculates a modulus (always positive).
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.DegreeToRadian(System.Single)">
+            <summary>
+            Converts an angle in degrees to radians
+            </summary>
+            <param name="value">The angle in degrees</param>
+            <returns>The angle in radians</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.DegreeToRadian(System.Double)">
+            <summary>
+            Converts an angle in degrees to radians
+            </summary>
+            <param name="value">The angle in degrees</param>
+            <returns>The angle in radians</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.RadianToDegree(System.Single)">
+            <summary>
+            Converts an angle in radians to degrees
+            </summary>
+            <param name="value">The angle in radians</param>
+            <returns>The angle in degrees</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.RadianToDegree(System.Double)">
+            <summary>
+            Converts an angle in radians to degrees
+            </summary>
+            <param name="value">The angle in radians</param>
+            <returns>The angle in degrees</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.UnitVector(System.Double,System.Double)">
+            <summary>
+            Calculates a unit vector using spherical coordinates.
+            </summary>
+            <param name="inclination">Angle away from positive Z axis in radians. Values from 0 to Pi.</param>
+            <param name="azimuth">Angle away from from positive X axis in radians. Values from 0 to 2*Pi.</param>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.AngleToByte(System.Double)">
+            <summary>
+            Maps a 0°-180° angle in radians to a 0-255 byte value.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.ByteToAngle(System.Byte)">
+            <summary>
+            Maps a 0-255 byte value to a 0°-180° angle in radians.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.ByteToAngle(NanoByte.Common.Values.ByteVector4)">
+            <summary>
+            Maps a vector of 0-255 byte values to a vector of 0°-180° angles in radians.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.InterpolateTrigonometric(System.Double,System.Double[])">
+            <summary>
+            Performs smooth (trigonometric) interpolation between two or more values
+            </summary>
+            <param name="factor">A factor between 0 and <paramref name="values"/>.Length</param>
+            <param name="values">The value checkpoints</param>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.InterpolateTrigonometric(System.Single,System.Single[])">
+            <summary>
+            Performs smooth (trigonometric) interpolation between two or more values
+            </summary>
+            <param name="factor">A factor between 0 and <paramref name="values"/>.Length</param>
+            <param name="values">The value checkpoints</param>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.InterpolateTrigonometric(System.Single,SlimDX.Vector4[])">
+            <summary>
+            Performs smooth (trigonometric) interpolation between two or more values
+            </summary>
+            <param name="factor">A factor between 0 and <paramref name="values"/>.Length</param>
+            <param name="values">The value checkpoints</param>
+        </member>
+        <member name="F:NanoByte.Common.MathUtils._factorialLookup">
+            <summary>Pre-calculated factorial lookup-table</summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Factorial(System.Int32)">
+            <summary>
+            Calculates the factorial of n (n!)
+            </summary>
+            <param name="n">A value between 0 and 32768</param>
+            <remarks>Values between n=0 and n=16 have been pre-calculated and are therefor very fast</remarks>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.BinomCoeff(System.Int32,System.Int32)">
+            <summary>
+            Calculates the binomial coefficient (n choose k)
+            </summary>
+            <param name="n">A value between 0 and 32768</param>
+            <param name="k">An integer</param>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Bernstein(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Calculates a Bernstein basis polynomial
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Bezier(System.Int32,SlimDX.Vector2[])">
+            <summary>
+            Calculates points on a 2D bezier curve
+            </summary>
+            <param name="controlPoints">An array of control points; the curve will pass through the first and the last entry</param>
+            <param name="resolution">The desired number of output points</param>
+            <returns>An array of <paramref name="resolution"/> points on the curve</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Bezier(System.Int32,NanoByte.Common.Values.DoubleVector3[])">
+            <summary>
+            Calculates points on a 3D bezier curve
+            </summary>
+            <param name="resolution">The desired number of output points</param>
+            <param name="controlPoints">An array of control points; the curve will pass through the first and the last entry</param>
+            <returns>An array of <paramref name="resolution"/> points on the curve</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.GaussKernel(System.Double,System.Int32)">
+            <summary>
+            Generates a Gaussian kernel.
+            </summary>
+            <param name="sigma">The standard deviation of the Gaussian distribution.</param>
+            <param name="kernelSize">The size of the kernel. Should be an uneven number.</param>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.ViewQuaternion(SlimDX.Vector3,System.Single)">
+            <summary>
+            Calculates a rotation quaternion for a view vector
+            </summary>
+            <param name="view">The view vector</param>
+            <param name="roll">The roll value</param>
+            <returns>A normalized quaternion</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Rotate(SlimDX.Vector2,System.Single)">
+            <summary>
+            Rotates a <see cref="T:SlimDX.Vector2"/> by <paramref name="rotation"/> around the origin.
+            </summary>
+            <param name="value">The original vector.</param>
+            <param name="rotation">The angle to rotate by in degrees.</param>
+            <returns>The rotated <see cref="T:SlimDX.Vector2"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Transform(SlimDX.BoundingBox,SlimDX.Matrix)">
+            <summary>
+            Applies a matrix transform to a bounding box.
+            </summary>
+            <param name="box">The bounding box to apply the transform to.</param>
+            <param name="matrix">The transformation matrix to apply.</param>
+            <returns>The transformed bounding box.</returns>
+        </member>
+        <member name="M:NanoByte.Common.MathUtils.Transform(SlimDX.BoundingSphere,SlimDX.Matrix)">
+            <summary>
+            Applies a matrix transform to a bounding sphere.
+            </summary>
+            <param name="sphere">The bounding sphere to apply the transform to.</param>
+            <param name="matrix">The transformation matrix to apply.</param>
+            <returns>The transformed bounding sphere.</returns>
+        </member>
+        <member name="T:NanoByte.Common.RandomUtils">
+            <summary>
+            Provides helper methods for creating different types of variables with random content.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.RandomUtils._randomGenerator">
+            <summary>
+            Global random generator
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomInt(System.Int32,System.Int32)">
+            <summary>
+            Get random a integer value
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomFloat(System.Single,System.Single)">
+            <summary>
+            Get a random float value between <paramref name="min"/> and <paramref name="max"/>
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomFloatRange(System.Double,System.Double,System.Double)">
+            <summary>
+            Get a random double value between <paramref name="min"/> and <paramref name="max"/> with steps of <paramref name="step"/>
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+            <param name="step">The step size (all returned values are multiples of this)</param>
+            <returns>A random multiple of <paramref name="step"/> between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomDouble(System.Single,System.Single)">
+            <summary>
+            Get a random double value between <paramref name="min"/> and <paramref name="max"/>
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomDouble(System.Double,System.Double,System.Double)">
+            <summary>
+            Get a random double value between <paramref name="min"/> and <paramref name="max"/> with steps of <paramref name="step"/>
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+            <param name="step">The step size (all returned values are multiples of this)</param>
+            <returns>A random multiple of <paramref name="step"/> between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomByte(System.Byte,System.Byte)">
+            <summary>
+            Get a random byte value between <paramref name="min"/> and <paramref name="max"/>
+            </summary>
+            <param name="min">The minimum value</param>
+            <param name="max">The maximum value</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomVector2(SlimDX.Vector2,SlimDX.Vector2)">
+            <summary>
+            Get a random Vector2 value between <paramref name="min"/> and <paramref name="max"/>
+            </summary>
+            <param name="min">minimum for each component</param>
+            <param name="max">maximum for each component</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomVector3(SlimDX.Vector3,SlimDX.Vector3)">
+            <summary>
+            Get a random Vector3 value between <paramref name="min"/> and <paramref name="max"/>
+            </summary>
+            <param name="min">minimum for each component</param>
+            <param name="max">maximum for each component</param>
+        </member>
+        <member name="M:NanoByte.Common.RandomUtils.GetRandomColor(System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Get a random color value between <paramref name="limit1"/> and <paramref name="limit2"/>
+            </summary>
+            <param name="limit1">One limit for the color values</param>
+            <param name="limit2">The other limit for the color values</param>
+        </member>
+        <member name="T:NanoByte.Common.Values.Attenuation">
+            <summary>
+            Factors describing the attenuation of light intensity over distance.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.Attenuation.None">
+            <summary>
+            Value for no attenuation over distance.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Attenuation.Constant">
+            <summary>
+            A constant factor multiplied with the color.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Attenuation.Linear">
+            <summary>
+            A constant factor multiplied with the color and the inverse distance.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Attenuation.Quadratic">
+            <summary>
+            A constant factor multiplied with the color and the inverse distance squared.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a new attenuation structure
+            </summary>
+            <param name="constant">A constant factor multiplied with the color.</param>
+            <param name="linear">A constant factor multiplied with the color and the inverse distance.</param>
+            <param name="quadratic">A constant factor multiplied with the color and the inverse distance squared.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.op_Explicit(NanoByte.Common.Values.Attenuation)~SlimDX.Vector4">
+            <summary>Convert <see cref="T:NanoByte.Common.Values.Attenuation"/> into <see cref="T:SlimDX.Vector4"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.op_Explicit(SlimDX.Vector4)~NanoByte.Common.Values.Attenuation">
+            <summary>Convert <see cref="T:SlimDX.Vector4"/> into <see cref="T:NanoByte.Common.Values.Attenuation"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.Equals(NanoByte.Common.Values.Attenuation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.op_Equality(NanoByte.Common.Values.Attenuation,NanoByte.Common.Values.Attenuation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.op_Inequality(NanoByte.Common.Values.Attenuation,NanoByte.Common.Values.Attenuation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Attenuation.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.ByteGrid">
+            <summary>
+            A 2D grid of <see cref="T:System.Byte"/> values that can be stored in grayscale PNG files.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.#ctor(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.#ctor(System.Byte[0:,0:])">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.SampledRead(System.Single,System.Single)">
+            <summary>
+            Performs bilinear interpolation to get values lying between discrete grid points.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.IsInRange(System.Single,System.Single)">
+            <summary>
+            Returns <see langword="true"/> if the specified coordinates are within the bounds of the grid.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.Load(System.IO.Stream)">
+            <summary>
+            Loads a grid from a PNG stream.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteGrid.GenerateBitmap">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.ByteVector4">
+            <summary>
+            Defines a four component vector with <see cref="T:System.Byte"/> accuracy.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ByteVector4.X">
+            <summary>
+            Gets or sets the X component of the vector.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ByteVector4.Y">
+            <summary>
+            Gets or sets the Y component of the vector. 
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ByteVector4.Z">
+            <summary>
+            Gets or sets the Z component of the vector.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ByteVector4.W">
+            <summary>
+            Gets or sets the W component of the vector.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Creates a new vector.
+            </summary>
+            <param name="x">The X component.</param>
+            <param name="y">The Y component.</param>
+            <param name="z">The Z component.</param>
+            <param name="w">The W component.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.Equals(NanoByte.Common.Values.ByteVector4)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.op_Equality(NanoByte.Common.Values.ByteVector4,NanoByte.Common.Values.ByteVector4)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.op_Inequality(NanoByte.Common.Values.ByteVector4,NanoByte.Common.Values.ByteVector4)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.ByteVector4Grid">
+            <summary>
+            A 2D grid of <see cref="T:NanoByte.Common.Values.ByteVector4"/> values that can be stored in ARGB PNG files.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4Grid.#ctor(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4Grid.#ctor(NanoByte.Common.Values.ByteVector4[0:,0:])">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4Grid.Load(System.IO.Stream)">
+            <summary>
+            Loads a grid from a PNG stream.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ByteVector4Grid.GenerateBitmap">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.ColorCorrection">
+            <summary>
+            Color correction values for use in post-processing.
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.ColorCorrection.Default">
+            <summary>
+            No color change.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ColorCorrection.Brightness">
+            <summary>
+            How bright the picture should be - values between 0 (black) and 5 (5x normal).
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ColorCorrection.Contrast">
+            <summary>
+            The contrast level of the picture - values between -5 and 5.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ColorCorrection.Saturation">
+            <summary>
+            The color saturation level of the picture - values between -5 and 5.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ColorCorrection.Hue">
+            <summary>
+            The color hue rotation of the picture - values between 0 and 360.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a new color correction structure.
+            </summary>
+            <param name="brightness">How bright the picture should be - values between 0 (black) and 5 (5x normal).</param>
+            <param name="contrast">The contrast level of the picture - values between -5 and 5.</param>
+            <param name="saturation">The color saturation level of the picture - values between -5 and 5.</param>
+            <param name="hue">The color hue rotation of the picture - values between 0 and 360.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.SinusInterpolate(System.Single,NanoByte.Common.Values.ColorCorrection[])">
+            <summary>
+            Performs smooth (sinus-based) interpolation between two or more value sets.
+            </summary>
+            <param name="factor">A factor between 0 and <paramref name="values"/>.Length.</param>
+            <param name="values">The value checkpoints.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.op_Explicit(NanoByte.Common.Values.ColorCorrection)~SlimDX.Vector4">
+            <summary>Convert <see cref="T:NanoByte.Common.Values.ColorCorrection"/> into <see cref="T:SlimDX.Vector4"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.op_Explicit(SlimDX.Vector4)~NanoByte.Common.Values.ColorCorrection">
+            <summary>Convert <see cref="T:SlimDX.Vector4"/> into see <see cref="T:NanoByte.Common.Values.ColorCorrection"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.Equals(NanoByte.Common.Values.ColorCorrection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.op_Equality(NanoByte.Common.Values.ColorCorrection,NanoByte.Common.Values.ColorCorrection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.op_Inequality(NanoByte.Common.Values.ColorCorrection,NanoByte.Common.Values.ColorCorrection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.ColorCorrection.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.AngleEditor">
+            <summary>
+            An editor that can be associated with <see langword="float"/> properties representing angles between 0 and 360 degrees. Uses <see cref="T:NanoByte.Common.Controls.AngleControl"/>.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Values.FloatRangeAttribute"/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AngleEditor.EditValue(System.Single,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AngleEditor.EditValue(System.Single,NanoByte.Common.Values.FloatRangeAttribute,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AngleEditor.GetPaintValueSupported(System.ComponentModel.ITypeDescriptorContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AngleEditor.PaintValue(System.Drawing.Design.PaintValueEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.AttenuationConverter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AttenuationConverter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AttenuationConverter.GetArguments(NanoByte.Common.Values.Attenuation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AttenuationConverter.GetValues(NanoByte.Common.Values.Attenuation,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AttenuationConverter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.AttenuationConverter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.CodeEditor">
+            <summary>
+            An editor that can be associated with <see langword="string"/> properties. Uses <see cref="T:ICSharpCode.TextEditor.TextEditorControl"/>.
+            </summary>
+            <seealso cref="T:NanoByte.Common.Values.FileTypeAttribute"/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.CodeEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.CodeEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.ColorCorrectionConverter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.ColorCorrectionConverter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.ColorCorrectionConverter.GetArguments(NanoByte.Common.Values.ColorCorrection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.ColorCorrectionConverter.GetValues(NanoByte.Common.Values.ColorCorrection,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.ColorCorrectionConverter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.ColorCorrectionConverter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.DoublePlaneConverter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoublePlaneConverter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoublePlaneConverter.GetArguments(NanoByte.Common.Values.DoublePlane)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoublePlaneConverter.GetValues(NanoByte.Common.Values.DoublePlane,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoublePlaneConverter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoublePlaneConverter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.DoubleVector3Converter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoubleVector3Converter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoubleVector3Converter.GetArguments(NanoByte.Common.Values.DoubleVector3)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoubleVector3Converter.GetValues(NanoByte.Common.Values.DoubleVector3,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoubleVector3Converter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.DoubleVector3Converter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.FloatEditor">
+            <summary>
+            Abstract base class for drop-down <see cref="T:System.Windows.Forms.PropertyGrid"/> editors that can be associated with <see langword="float"/> properties.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.FloatEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.FloatEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.FloatEditor.EditValue(System.Single,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <summary>
+            Displays the UI to edit the <see langword="float"/> value.
+            </summary>
+            <param name="value">The current value.</param>
+            <param name="editorService">The editor service used to display the dropdown control.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.FloatEditor.EditValue(System.Single,NanoByte.Common.Values.FloatRangeAttribute,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <summary>
+            Displays the UI to edit the <see langword="float"/> value.
+            </summary>
+            <param name="value">The current value.</param>
+            <param name="range">The range of valid values the user can select.</param>
+            <param name="editorService">The editor service used to display the dropdown control.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.QuadrangleConverter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.QuadrangleConverter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.QuadrangleConverter.GetArguments(NanoByte.Common.Values.Quadrangle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.QuadrangleConverter.GetValues(NanoByte.Common.Values.Quadrangle,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.QuadrangleConverter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.QuadrangleConverter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Design.SliderEditor">
+            <summary>
+            An editor that can be associated with <see langword="float"/> properties with values between 0 and 3 to provide a <see cref="T:System.Windows.Forms.TrackBar"/> interface.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.SliderEditor.EditValue(System.Single,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.SliderEditor.EditValue(System.Single,NanoByte.Common.Values.FloatRangeAttribute,System.Windows.Forms.Design.IWindowsFormsEditorService)">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.Design.Vector2RayConverter.NoArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.Vector2RayConverter.GetConstructor">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.Vector2RayConverter.GetArguments(NanoByte.Common.Values.Vector2Ray)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.Vector2RayConverter.GetValues(NanoByte.Common.Values.Vector2Ray,System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.Vector2RayConverter.GetObject(System.String[],System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Design.Vector2RayConverter.GetObject(System.Collections.IDictionary)">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.DoublePlane">
+            <summary>
+            Defines a plane in three dimensions with <see cref="T:System.Double"/> distance accuracy.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.DoublePlane.Point">
+            <summary>
+            A point that lies along the plane.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.DoublePlane.Normal">
+            <summary>
+            The normal vector of the plane.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.#ctor(NanoByte.Common.Values.DoubleVector3,SlimDX.Vector3)">
+            <summary>
+            Creates a new plane.
+            </summary>
+            <param name="point">A point that lies along the plane.</param>
+            <param name="normal">The normal vector of the plane.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.ApplyOffset(NanoByte.Common.Values.DoubleVector3)">
+            <summary>
+            Returns a single-precision standard <see cref="T:SlimDX.Plane"/> after subtracting an offset value.
+            </summary>
+            <param name="offset">This value is subtracted from the double-precision data before it is casted to single-precision.</param>
+            <returns>The newly positioned <see cref="T:SlimDX.Plane"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.Equals(NanoByte.Common.Values.DoublePlane)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.op_Equality(NanoByte.Common.Values.DoublePlane,NanoByte.Common.Values.DoublePlane)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.op_Inequality(NanoByte.Common.Values.DoublePlane,NanoByte.Common.Values.DoublePlane)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoublePlane.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.DoubleVector3">
+            <summary>
+            Defines a three component vector with <see cref="T:System.Double"/> accuracy.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.DoubleVector3.X">
+            <summary>
+            Gets or sets the X component of the vector.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.DoubleVector3.Y">
+            <summary>
+            Gets or sets the Y component of the vector. 
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.DoubleVector3.Z">
+            <summary>
+            Gets or sets the Z component of the vector.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new vector.
+            </summary>
+            <param name="x">The X component.</param>
+            <param name="y">The Y component.</param>
+            <param name="z">The Z component.</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Addition(NanoByte.Common.Values.DoubleVector3,SlimDX.Vector3)">
+            <summary>Add <see cref="T:NanoByte.Common.Values.DoubleVector3"/> to <see cref="T:SlimDX.Vector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Addition(SlimDX.Vector3,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Add <see cref="T:SlimDX.Vector3"/> to <see cref="T:NanoByte.Common.Values.DoubleVector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Subtraction(NanoByte.Common.Values.DoubleVector3,SlimDX.Vector3)">
+            <summary>Subtract <see cref="T:NanoByte.Common.Values.DoubleVector3"/> from <see cref="T:SlimDX.Vector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Subtraction(SlimDX.Vector3,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Subtract <see cref="T:NanoByte.Common.Values.DoubleVector3"/> from <see cref="T:SlimDX.Vector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Addition(NanoByte.Common.Values.DoubleVector3,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Add <see cref="T:NanoByte.Common.Values.DoubleVector3"/> to <see cref="T:NanoByte.Common.Values.DoubleVector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Subtraction(NanoByte.Common.Values.DoubleVector3,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Subtract <see cref="T:NanoByte.Common.Values.DoubleVector3"/> from <see cref="T:NanoByte.Common.Values.DoubleVector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.Subtract(NanoByte.Common.Values.DoubleVector3)">
+            <summary>
+            Subtracts <paramref name="vector"/> from this and returns the result
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.ApplyOffset(NanoByte.Common.Values.DoubleVector3)">
+            <summary>
+            Returns a single-precision standard Vector3 after subtracting an offset value
+            </summary>
+            <param name="offset">This value is subtracting from the double-precision data before it is casted to single-precision</param>
+            <returns>The relative value</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Multiply(NanoByte.Common.Values.DoubleVector3,System.Double)">
+            <summary>Multiply <see cref="T:NanoByte.Common.Values.DoubleVector3"/> with <see cref="T:System.Double"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Multiply(System.Double,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Multiply <see cref="T:NanoByte.Common.Values.DoubleVector3"/> with <see cref="T:System.Double"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Multiply(System.Single,NanoByte.Common.Values.DoubleVector3)">
+            <summary>Multiply <see cref="T:NanoByte.Common.Values.DoubleVector3"/> with <see cref="T:System.Single"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Multiply(NanoByte.Common.Values.DoubleVector3,System.Single)">
+            <summary>Multiply <see cref="T:NanoByte.Common.Values.DoubleVector3"/> with <see cref="T:System.Single"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.DotProduct(NanoByte.Common.Values.DoubleVector3)">
+            <summary>
+            Calculates the dot product of this vector and <paramref name="vector"/>.
+            </summary>
+            <param name="vector">The second vector to calculate the dot product with.</param>
+            <returns>this x <paramref name="vector"/></returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.Length">
+            <summary>
+            Calculates the length of the vector.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.Flatten">
+            <summary>
+            Maps X to X and Z to -Y. Drops Y.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Explicit(SlimDX.Vector3)~NanoByte.Common.Values.DoubleVector3">
+            <summary>Convert <see cref="T:SlimDX.Vector3"/> into <see cref="T:NanoByte.Common.Values.DoubleVector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Explicit(NanoByte.Common.Values.DoubleVector3)~SlimDX.Vector3">
+            <summary>Convert <see cref="T:NanoByte.Common.Values.DoubleVector3"/> into <see cref="T:SlimDX.Vector3"/></summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.Equals(NanoByte.Common.Values.DoubleVector3)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Equality(NanoByte.Common.Values.DoubleVector3,NanoByte.Common.Values.DoubleVector3)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.op_Inequality(NanoByte.Common.Values.DoubleVector3,NanoByte.Common.Values.DoubleVector3)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.DoubleVector3.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.ExpandableRectangleArray`1">
+            <summary>
+            Builds a rectangle array that can grow in any direction.
+            </summary>
+            <typeparam name="T">The type of elements to store in the array.</typeparam>
+        </member>
+        <member name="F:NanoByte.Common.Values.ExpandableRectangleArray`1._subsets">
+            <summary>Maintains a list of all <see cref="T:NanoByte.Common.Values.ExpandableRectangleArray`1.Subset"/>s inserted so far.</summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.ExpandableRectangleArray`1.TotalArea">
+            <summary>
+            The total area the rectangle currently encompasses.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.AddFirst(System.Drawing.Point,`0[0:,0:])">
+            <summary>
+            Insert a new subset array before any existing entries growing the rectangle as necessary.
+            </summary>
+            <param name="start">The top-left coordinates of the area to insert the array into.</param>
+            <param name="array">The array to insert. Do not modify this array after calling this method!</param>
+            <returns>Values in negative areas are clipped away.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.AddLast(System.Drawing.Point,`0[0:,0:])">
+            <summary>
+            Insert a new subset array after any existing entries growing the rectangle as necessary.
+            </summary>
+            <param name="start">The top-left coordinates of the area to insert the array into.</param>
+            <param name="array">The array to insert. Do not modify this array after calling this method!</param>
+            <returns>Values in negative areas are clipped away.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.ExpandArea(System.Drawing.Rectangle)">
+            <summary>
+            Updates <see cref="P:NanoByte.Common.Values.ExpandableRectangleArray`1.TotalArea"/> to accomodate a new subset.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.GetArray">
+            <summary>
+            Returns the smallest possible array that encompasses all inserted subsets. Blanks between subsets are filled with the default value for <typeparamref name="T"/>.
+            </summary>
+            <returns>An array containing the copyed data. Size will be determined by <see cref="P:NanoByte.Common.Values.ExpandableRectangleArray`1.TotalArea"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.GetArray(`0[0:,0:])">
+            <summary>
+            Returns the smallest possible array that encompasses all inserted subsets and can be backed by a base array.
+            </summary>
+            <param name="baseValues">An array to query for values to fill the blanks left between subsets.</param>
+            <returns>An array containing the copyed data. Size will be trimmed if <paramref name="baseValues"/> is too small.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.GetArray(NanoByte.Common.Values.Grid{`0})">
+            <summary>
+            Returns the smallest possible array that encompasses all inserted subsets and can be backed by a base array.
+            </summary>
+            <param name="baseValues">An array to query for values to fill the blanks left between subsets.</param>
+            <returns>An array containing the copyed data. Size will be trimmed if <paramref name="baseValues"/> is too small.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.ExpandableRectangleArray`1.CopySubsetsToArray(`0[0:,0:])">
+            <summary>
+            Copies each subset array to a result array.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Values.FileTypeAttribute">
+            <summary>
+            Stores the file type describing the kind of data a property stores.
+            Controls the behaviour of <see cref="T:NanoByte.Common.Values.Design.CodeEditor"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.FileTypeAttribute.FileType">
+            <summary>
+            The name of the file type (e.g. XML, JavaScript, Lua).
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.FileTypeAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new file type attribute.
+            </summary>
+            <param name="fileType">The name of the file type (e.g. XML, JavaScript, Lua).</param>
+        </member>
+        <member name="T:NanoByte.Common.Values.FloatRangeAttribute">
+            <summary>
+            Stores the mimimum and maximum values allowed for a float field or property.
+            Controls the behaviour of <see cref="T:NanoByte.Common.Values.Design.AngleEditor"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.FloatRangeAttribute.Minimum">
+            <summary>
+            The minimum value the field or property may have.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.FloatRangeAttribute.Maximum">
+            <summary>
+            The maximum value the field or property may have.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.FloatRangeAttribute.#ctor(System.Single,System.Single)">
+            <summary>
+            Creates a new float range attribute.
+            </summary>
+            <param name="minimum">The minimum value the field or property may have.</param>
+            <param name="maximum">The maximum value the field or property may have.</param>
+        </member>
+        <member name="T:NanoByte.Common.Values.Quality">
+            <summary>
+            A generic enumeration for a three-level quality setting.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Values.WaterEffectsType">
+            <summary>
+            The effects to be display on water (e.g. reflections).
+            </summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.WaterEffectsType.None">
+            <summary>Don't apply any water effects (except simple alpha-blending)</summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.WaterEffectsType.RefractionOnly">
+            <summary>Refract objects below the water surface</summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.WaterEffectsType.ReflectTerrain">
+            <summary>Refract objects below the water surface and reflect the terrain</summary>
+        </member>
+        <member name="F:NanoByte.Common.Values.WaterEffectsType.ReflectAll">
+            <summary>Refract objects below the water surface and reflect objects above</summary>
+        </member>
+        <member name="T:NanoByte.Common.Values.Grid`1">
+            <summary>
+            A 2D grid of values that can be stored in PNG files.
+            </summary>
+            <typeparam name="T">The type of values stored in the grid.</typeparam>
+        </member>
+        <member name="F:NanoByte.Common.Values.Grid`1.Data">
+            <summary>
+            The internal array containing the values.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Grid`1.Width">
+            <summary>
+            The width of the grid (number of values along the X axis).
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Grid`1.Height">
+            <summary>
+            The height of the grid (number of values along the Y axis).
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new empty grid.
+            </summary>
+            <param name="width">The width of the grid (number of values along the X axis).</param>
+            <param name="height">The height of the grid (number of values along the Y axis).</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.#ctor(`0[0:,0:])">
+            <summary>
+            Creates a new grid based on an existing array.
+            </summary>
+            <param name="data">Used as the internal array (no defensive copy). Do not modify once passing in!</param>
+        </member>
+        <member name="P:NanoByte.Common.Values.Grid`1.Item(System.Int32,System.Int32)">
+            <summary>
+            Gets or sets a value in the grid.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException"><paramref name="x"/> or <paramref name="y"/> are out of bounds.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.ClampedRead(System.Int32,System.Int32)">
+            <summary>
+            Reads a value in the grid and automatically clamps out of bound values of <paramref name="x"/> or <paramref name="y"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.Save(System.String)">
+            <summary>
+            Saves the grid to a PNG file.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.Save(System.IO.Stream)">
+            <summary>
+            Saves the grid to a PNG stream.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Grid`1.GenerateBitmap">
+            <summary>
+            Generates a bitmap representation of the grid.
+            </summary>
+        </member>
+        <member name="T:NanoByte.Common.Values.NibbleGrid">
+            <summary>
+            A 2D grid of nibble (half a <see cref="T:System.Byte"/> / 4 bits) values that can be stored in 16 colors PNG files.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.NibbleGrid.#ctor(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.NibbleGrid.#ctor(System.Byte[0:,0:])">
+            <inheritdoc/>
+        </member>
+        <member name="P:NanoByte.Common.Values.NibbleGrid.Item(System.Int32,System.Int32)">
+            <summary>
+            Gets or sets a value in the grid.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException"><paramref name="x"/> or <paramref name="y"/> are out of bounds.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">A value larger than 15 is set.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Values.NibbleGrid.Load(System.IO.Stream)">
+            <summary>
+            Loads a grid from a PNG stream.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Any of the colors in the imag  is not part of the classic 16 colors palette.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Values.NibbleGrid.PaletteLookup(System.Drawing.Color)">
+            <summary>
+            Identifies a color in the classic 16 colors palette.
+            </summary>
+            <param name="color">One of the classic 16 colors.</param>
+            <returns>A number between 0 and 15.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="color"/> is not part of the classic 16 colors palette.</exception>
+        </member>
+        <member name="M:NanoByte.Common.Values.NibbleGrid.GenerateBitmap">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Quadrangle">
+            <summary>
+            A 2D polygon consisting of four points.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.P1">
+            <summary>
+            The coordinates of the first point; counter-clockwise ordering recommended.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.P2">
+            <summary>
+            The coordinates of the second point; counter-clockwise ordering recommended.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.P3">
+            <summary>
+            The coordinates of the third point; counter-clockwise ordering recommended.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.P4">
+            <summary>
+            The coordinates of the fourth point; counter-clockwise ordering recommended.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.Edge1">
+            <summary>
+            The edge from <see cref="P:NanoByte.Common.Values.Quadrangle.P1"/> to <see cref="P:NanoByte.Common.Values.Quadrangle.P2"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.Edge2">
+            <summary>
+            The edge from <see cref="P:NanoByte.Common.Values.Quadrangle.P2"/> to <see cref="P:NanoByte.Common.Values.Quadrangle.P3"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.Edge3">
+            <summary>
+            The edge from <see cref="P:NanoByte.Common.Values.Quadrangle.P3"/> to <see cref="P:NanoByte.Common.Values.Quadrangle.P4"/>.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Quadrangle.Edge4">
+            <summary>
+            The edge from <see cref="P:NanoByte.Common.Values.Quadrangle.P4"/> to <see cref="P:NanoByte.Common.Values.Quadrangle.P1"/>.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.#ctor(SlimDX.Vector2,SlimDX.Vector2,SlimDX.Vector2,SlimDX.Vector2)">
+            <summary>
+            Creates a new quadrangle. Counter-clockwise ordering is recommended.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a new quadrangle. Counter-clockwise ordering is recommended.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.#ctor(System.Drawing.RectangleF)">
+            <summary>
+            Creates a new quadrangle from a simple rectangle.
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.Offset(SlimDX.Vector2)">
+            <summary>
+            Returns a new <see cref="T:NanoByte.Common.Values.Quadrangle"/> shifted by <paramref name="distance"/>.
+            </summary>
+            <param name="distance">This value is added to each corner position.</param>
+            <returns>The shifted <see cref="T:NanoByte.Common.Values.Quadrangle"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.Rotate(System.Single)">
+            <summary>
+            Returns a new <see cref="T:NanoByte.Common.Values.Quadrangle"/> rotated by <paramref name="rotation"/> around the origin.
+            </summary>
+            <param name="rotation">The angle to rotate by in degrees.</param>
+            <returns>The rotated <see cref="T:NanoByte.Common.Values.Quadrangle"/>.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.IntersectWith(SlimDX.Vector2)">
+            <summary>
+            If the points are stored counter-clockwise and form a convex polygon, this will test if a point lies inside it.
+            </summary>
+            <param name="point">The point to test for intersection.</param>
+            <returns><see langword="true"/> if <paramref name="point"/> lies within the quadrangle.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.IntersectWith(System.Drawing.RectangleF)">
+            <summary>
+            If the points are stored counter-clockwise and form a convex polygon, this will test if a rectangle lies inside it.
+            </summary>
+            <param name="rectangle">The rectangle to test for intersection.</param>
+            <returns><see langword="true"/> if <paramref name="rectangle"/> lies within the quadrangle.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.IntersectWith(NanoByte.Common.Values.Quadrangle)">
+            <summary>
+            This will test if two quadrangles intersect with each other. Only works if both quadrangles are counter-clockwise and form a convex polygon.
+            </summary>
+            <param name="quadrangle">The other quadrangle to test for intersection.</param>
+            <returns><see langword="true"/> if <paramref name="quadrangle"/> intersects with this quadrangle.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.IntersectCircle(System.Single)">
+            <summary>
+            If the points are stored counter-clockwise and form a convex polygon, this will test if a circle with the origin (0;0) lies inside it.
+            </summary>
+            <param name="radius">The rectangle to test for intersection.</param>
+            <returns><see langword="true"/> if the circle lies within the quadrangle.</returns>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.Equals(NanoByte.Common.Values.Quadrangle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.op_Equality(NanoByte.Common.Values.Quadrangle,NanoByte.Common.Values.Quadrangle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.op_Inequality(NanoByte.Common.Values.Quadrangle,NanoByte.Common.Values.Quadrangle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Quadrangle.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.Vector2Ray">
+            <summary>
+            Defines a ray in two dimensions, specified by a starting position and a direction.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Vector2Ray.Position">
+            <summary>
+            Specifies the location of the ray's origin.
+            </summary>
+        </member>
+        <member name="P:NanoByte.Common.Values.Vector2Ray.Direction">
+            <summary>
+            A vector pointing along the ray - automatically normalized when set
+            </summary>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.#ctor(SlimDX.Vector2,SlimDX.Vector2)">
+            <summary>
+            Creates a new ray
+            </summary>
+            <param name="point">A point along the ray</param>
+            <param name="direction">A vector pointing along the ray - automatically normalized when set</param>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.Equals(NanoByte.Common.Values.Vector2Ray)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.op_Equality(NanoByte.Common.Values.Vector2Ray,NanoByte.Common.Values.Vector2Ray)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.op_Inequality(NanoByte.Common.Values.Vector2Ray,NanoByte.Common.Values.Vector2Ray)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.Vector2Ray.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:NanoByte.Common.Values.XColor">
+            <summary>
+            Stores ARGB-colors as byte values but also surfaces them as float values.
+            </summary>
+            <remarks>
+            This class can be used to serialize ARGB-color values (unlike <see cref="T:System.Drawing.Color"/> all fields are writable).
+            It provides easy methods for casting to and from <see cref="T:System.Drawing.Color"/> (useful in combination with a <see cref="T:System.Windows.Forms.PropertyGrid"/>).
+            It also provides easy methods for casting to and from <see cref="T:SlimDX.Color4"/> (useful for rendering with <see cref="N:SlimDX"/>).
+            </remarks>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Equality(NanoByte.Common.Values.XColor,NanoByte.Common.Values.XColor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Inequality(NanoByte.Common.Values.XColor,NanoByte.Common.Values.XColor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Equality(NanoByte.Common.Values.XColor,System.Drawing.Color)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Inequality(NanoByte.Common.Values.XColor,System.Drawing.Color)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Equality(System.Drawing.Color,NanoByte.Common.Values.XColor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.op_Inequality(System.Drawing.Color,NanoByte.Common.Values.XColor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:NanoByte.Common.Values.XColor.GetHashCode">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

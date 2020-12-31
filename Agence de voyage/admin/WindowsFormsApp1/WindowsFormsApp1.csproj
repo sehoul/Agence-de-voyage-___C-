@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4B4C276-8711-4D4B-9AF2-523EC5A4FBAA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WindowsFormsApp1</RootNamespace>
+    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AlphaFramework.Presentation, Version=1.0.2.0, Culture=neutral, PublicKeyToken=5f8d92836f24b92b, processorArchitecture=x86">
+      <HintPath>..\packages\AlphaFramework.Presentation.1.0.2\lib\net20\AlphaFramework.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="AlphaFramework.World, Version=1.0.2.0, Culture=neutral, PublicKeyToken=5f8d92836f24b92b, processorArchitecture=x86">
+      <HintPath>..\packages\AlphaFramework.World.1.0.2\lib\net20\AlphaFramework.World.dll</HintPath>
+    </Reference>
+    <Reference Include="BorderClippingExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BorderClippingExtension.dll.1.0.0\lib\BorderClippingExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu.UI.WinForms.BunifuPictureBox">
+      <HintPath>..\..\..\..\Desktop\Nouveau dossier\Bunifu.UI.WinForms.BunifuPictureBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu_UI_v1.52">
+      <HintPath>..\..\..\..\Desktop\Nouveau dossier\Bunifu_UI_v1.52.dll</HintPath>
+    </Reference>
+    <Reference Include="Chart.Mvc, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Chart.Mvc.1.0.0.2\lib\net45\Chart.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="DragIt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DragIt.1.0.1\lib\net45\DragIt.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatButton">
+      <HintPath>..\..\pk\FlatButton.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.36.1\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.36.1\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.36.1\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.36.1\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.DeploymentManagerAlpha.alpha, Version=1.36.1.1255, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.DeploymentManagerAlpha.alpha.1.36.1.1255\lib\net45\Google.Apis.DeploymentManagerAlpha.alpha.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.36.1\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Base.Lib, Version=1.1.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\J.Base.Lib.1.1.1.6\lib\net451\J.Base.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="JDragControl">
+      <HintPath>..\..\pk\JDragControl.dll</HintPath>
+    </Reference>
+    <Reference Include="JMaterialTextbox">
+      <HintPath>..\..\pk\JMaterialTextbox.dll</HintPath>
+    </Reference>
+    <Reference Include="JMetroTextBox">
+      <HintPath>..\..\pk\JMetroTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="JTextBox">
+      <HintPath>..\..\pk\JTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="JTextBox2">
+      <HintPath>..\..\pk\JTextBox2.dll</HintPath>
+    </Reference>
+    <Reference Include="JThinButton">
+      <HintPath>..\..\pk\JThinButton.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqBridge, Version=1.3.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
+      <Aliases>LinqBridge</Aliases>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.3.0.1\lib\net452\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common, Version=1.2.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.1.2.8\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.SlimDX, Version=1.2.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=x86">
+      <HintPath>..\packages\NanoByte.Common.SlimDX.1.2.8\lib\net20\NanoByte.Common.SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms, Version=1.2.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.WinForms.1.2.8\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Neo4j.Driver, Version=1.7.91.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo4j.Driver.1.7.0\lib\net452\Neo4j.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.RoundedBorderControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.RoundedBorderControls.1.0.0\lib\netstandard2.0\Plugin.RoundedBorderControls.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.1.59.3\lib\net45\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Forms, Version=1.59.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.Forms.1.59.3\lib\netstandard1.3\SkiaSharp.Views.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.ShapeControl, Version=0.1.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShapeControl.Forms.0.2.0\lib\netstandard2.0\Stormlion.ShapeControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Web.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Web.DataVisualization.Design.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Windows.Forms.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TextTableFormatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TextTableFormatter.NET.1.0.1\lib\TextTableFormatter.dll</HintPath>
+    </Reference>
+    <Reference Include="TransControl_src">
+      <HintPath>..\..\..\Desktop\TransControl_src\TransControl_src.dll</HintPath>
+    </Reference>
+    <Reference Include="VisualPlus">
+      <HintPath>..\..\lib\VisualPlus\NET4\VisualPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Wolfram.Alpha, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wolfram.Alpha.1.0.7\lib\net45\Wolfram.Alpha.dll</HintPath>
+    </Reference>
+    <Reference Include="WolframAlpha.Api.v2, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WolframAlpha.Api.v2.1.0.1\lib\portable-net45+sl5+wp8+win8\WolframAlpha.Api.v2.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.5.1.527436\lib\netstandard1.0\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.5.1.527436\lib\netstandard1.0\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.5.1.527436\lib\netstandard1.0\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Client.Designer.cs">
+      <DependentUpon>Client.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cnx.cs" />
+    <Compile Include="Form10.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form10.Designer.cs">
+      <DependentUpon>Form10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form11.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form11.Designer.cs">
+      <DependentUpon>Form11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form4.Designer.cs">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form5.Designer.cs">
+      <DependentUpon>Form5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form6.Designer.cs">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form8.Designer.cs">
+      <DependentUpon>Form8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form9.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form9.Designer.cs">
+      <DependentUpon>Form9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="integrerMaps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="integrerMaps.Designer.cs">
+      <DependentUpon>integrerMaps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ISButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ISButton.designer.cs">
+      <DependentUpon>ISButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ISPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="istravelDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet5.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet6.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet6.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="istravelDataSet7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>istravelDataSet7.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Maps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps.Designer.cs">
+      <DependentUpon>Maps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ticket.Designer.cs">
+      <DependentUpon>Ticket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ticketimp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ticketimp.Designer.cs">
+      <DependentUpon>ticketimp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="trajetuser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="trajetuser.Designer.cs">
+      <DependentUpon>trajetuser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="user.Designer.cs">
+      <DependentUpon>user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vehicle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vehicle.Designer.cs">
+      <DependentUpon>vehicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VoyageA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VoyageA.Designer.cs">
+      <DependentUpon>VoyageA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="voyageF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="voyageF.Designer.cs">
+      <DependentUpon>voyageF.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Client.resx">
+      <DependentUpon>Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form10.resx">
+      <DependentUpon>Form10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form11.resx">
+      <DependentUpon>Form11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form4.resx">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form5.resx">
+      <DependentUpon>Form5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form6.resx">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form8.resx">
+      <DependentUpon>Form8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form9.resx">
+      <DependentUpon>Form9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="integrerMaps.resx">
+      <DependentUpon>integrerMaps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps.resx">
+      <DependentUpon>Maps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Ticket.resx">
+      <DependentUpon>Ticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ticketimp.resx">
+      <DependentUpon>ticketimp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="trajetuser.resx">
+      <DependentUpon>trajetuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user.resx">
+      <DependentUpon>user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vehicle.resx">
+      <DependentUpon>vehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VoyageA.resx">
+      <DependentUpon>VoyageA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="voyageF.resx">
+      <DependentUpon>voyageF.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="istravelDataSet.xsc">
+      <DependentUpon>istravelDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet.xss">
+      <DependentUpon>istravelDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet1.xsc">
+      <DependentUpon>istravelDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet1.xss">
+      <DependentUpon>istravelDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet2.xsc">
+      <DependentUpon>istravelDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet2.xss">
+      <DependentUpon>istravelDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet3.xsc">
+      <DependentUpon>istravelDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet3.xss">
+      <DependentUpon>istravelDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet4.xsc">
+      <DependentUpon>istravelDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet4.xss">
+      <DependentUpon>istravelDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet5.xsc">
+      <DependentUpon>istravelDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet5.xss">
+      <DependentUpon>istravelDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet6.xsc">
+      <DependentUpon>istravelDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet6.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet6.xss">
+      <DependentUpon>istravelDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet7.xsc">
+      <DependentUpon>istravelDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="istravelDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>istravelDataSet7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="istravelDataSet7.xss">
+      <DependentUpon>istravelDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Bunifu.Framework.Lib.HardwareFingerprint.datasource" />
+    <None Include="Properties\DataSources\Bunifu.Framework.License.datasource" />
+    <None Include="Properties\DataSources\Bunifu.Framework.LICENSE.License.datasource" />
+    <None Include="Properties\DataSources\Bunifu.Framework.UI.BunifuCustomControl.datasource" />
+    <None Include="Properties\DataSources\Bunifu.Framework.UI.BunifuUserControl.datasource" />
+    <None Include="Properties\DataSources\Bunifu.UI.WinForms.BunifuPictureBox+Types.datasource" />
+    <None Include="Properties\DataSources\Bunifu.UI.WinForms.BunifuPictureBox.datasource" />
+    <None Include="Properties\DataSources\BunifuAnimatorNS.Flags+WindowStyles.datasource" />
+    <None Include="Properties\DataSources\Form1.datasource" />
+    <None Include="Properties\DataSources\GClass0.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\SecureTeam.Attributes.ObfuscatedByAgileDotNetAttribute.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApp1.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApp1.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\{FE3C441D-DF9D-407b-917D-0B4471A8296C}.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calque 1 %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 122.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fichier 13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xxxx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu-three-horizontal-lines-symbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circular-shape-silhouette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circular-shape-silhouette %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circular-shape-silhouette %281%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circular-shape-silhouette %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money-bag-with-dollar-symbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\work-tools %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\placeholder %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customer %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\airplane %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capa 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\airplane %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\airplane %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money-bag-with-dollar-symbol %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money-bag-with-dollar-symbol %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\work-tools %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\placeholder %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customer %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\faq.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MetroFramework.txt" />
+    <None Include="Resources\casa.png" />
+    <None Include="Resources\employee.png" />
+    <None Include="Resources\hossima1.png" />
+    <None Include="Resources\merrackech1.png" />
+    <None Include="Resources\nador1.png" />
+    <None Include="Resources\rabat.png" />
+    <None Include="Resources\oujda.png" />
+    <None Include="Resources\taza1.png" />
+    <None Include="Resources\Fichier 18.png" />
+    <None Include="Resources\Fichier 19.png" />
+    <None Include="Resources\Fichier 20.png" />
+    <None Include="Resources\Fichier 21.png" />
+    <None Include="Resources\Fichier 22.png" />
+    <None Include="Resources\Fichier 23.png" />
+    <None Include="Resources\Fichier 24.png" />
+    <None Include="Resources\Fichier 25.png" />
+    <None Include="Resources\Fichier 26.png" />
+    <None Include="Resources\Fichier 27.png" />
+    <None Include="Resources\Fichier 28.png" />
+    <None Include="Resources\Fichier 31.png" />
+    <None Include="Resources\asphalt-auto-automobile-226460.jpg" />
+    <None Include="Resources\adventure-aircraft-aircraft-wing-1110670.jpg" />
+    <None Include="Resources\bosque-car-car-lights-626155.jpg" />
+    <None Include="Resources\architecture-black-and-white-bridge-711089.jpg" />
+    <None Include="Resources\icon %282%29.png" />
+    <None Include="Resources\menu.png" />
+    <None Include="Resources\boarding-pass-euro-ticket-69866.jpg" />
+    <None Include="Resources\magnifying-glass %281%29.png" />
+    <None Include="Resources\magnifying-glass %282%29.png" />
+    <None Include="Resources\asphalt-countryside-empty-105234.jpg" />
+    <None Include="Resources\4k-wallpaper-adventure-beach-165505.jpg" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\magnifying-glass.png" />
+    <None Include="Resources\adventure-air-aircraft-36487.jpg" />
+    <None Include="Resources\icon %283%29.png" />
+    <None Include="Resources\hide.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\caret-arrow-up.png" />
+    <None Include="Resources\icon %283%291.png" />
+    <None Include="Resources\minus-circle.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\asphalt-countryside-daylight-811029.jpg" />
+    <None Include="Resources\folder %282%29.png" />
+    <None Include="Resources\Trajet.jpg" />
+    <None Include="Resources\Emp.jpg" />
+    <None Include="Resources\Vh.jpg" />
+    <None Include="Resources\ticket10vitesse.PNG" />
+    <None Include="Resources\Don-Big-150x150.jpg" />
+    <None Include="Resources\Sans titre.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\12.jpg" />
+    <Content Include="Scripts\Chart.js" />
+    <None Include="Resources\british_flag_228158.png" />
+    <None Include="Resources\pp.png" />
+    <None Include="Resources\pl.png" />
+    <None Include="Resources\Capa 1 %282%29.png" />
+    <None Include="Resources\computer-cup-desk-4343371.jpg" />
+    <None Include="Resources\computer-cup-desk-434337.jpg" />
+    <None Include="Resources\flag-round-250.png" />
+    <None Include="Resources\notification.png" />
+    <None Include="Resources\ICONADMIN.png" />
+    <None Include="Resources\ISWORD.png" />
+    <None Include="Resources\login.png" />
+    <None Include="Resources\lo.jpg" />
+    <None Include="Resources\icon %281%29.png" />
+    <None Include="Resources\circular-shape-silhouette %283%29.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.props'))" />
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets'))" />
+  </Target>
+  <Import Project="..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.1.527436\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets')" />
+</Project>

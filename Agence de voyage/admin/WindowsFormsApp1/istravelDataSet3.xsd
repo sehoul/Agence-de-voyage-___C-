@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="istravelDataSet3" targetNamespace="http://tempuri.org/istravelDataSet3.xsd" xmlns:mstns="http://tempuri.org/istravelDataSet3.xsd" xmlns="http://tempuri.org/istravelDataSet3.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="istravelConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="istravelConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.WindowsFormsApp1.Properties.Settings.GlobalReference.Default.istravelConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TrajetTableAdapter" GeneratorDataComponentClassName="TrajetTableAdapter" Name="Trajet" UserDataComponentName="TrajetTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="istravelConnectionString (Settings)" DbObjectName="istravel.dbo.Trajet" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ville_A FROM dbo.Trajet</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ville_A" DataSetColumn="ville_A" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="istravelDataSet3" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="istravelDataSet3" msprop:Generator_UserDSName="istravelDataSet3">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Trajet" msprop:Generator_TableClassName="TrajetDataTable" msprop:Generator_TableVarName="tableTrajet" msprop:Generator_TablePropName="Trajet" msprop:Generator_RowDeletingName="TrajetRowDeleting" msprop:Generator_RowChangingName="TrajetRowChanging" msprop:Generator_RowEvHandlerName="TrajetRowChangeEventHandler" msprop:Generator_RowDeletedName="TrajetRowDeleted" msprop:Generator_UserTableName="Trajet" msprop:Generator_RowChangedName="TrajetRowChanged" msprop:Generator_RowEvArgName="TrajetRowChangeEvent" msprop:Generator_RowClassName="TrajetRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ville_A" msprop:Generator_ColumnVarNameInTable="columnville_A" msprop:Generator_ColumnPropNameInRow="ville_A" msprop:Generator_ColumnPropNameInTable="ville_AColumn" msprop:Generator_UserColumnName="ville_A" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

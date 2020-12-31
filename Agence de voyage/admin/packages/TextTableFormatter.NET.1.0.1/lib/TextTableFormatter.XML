@@ -1,0 +1,418 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TextTableFormatter</name>
+    </assembly>
+    <members>
+        <member name="T:TextTableFormatter.TableBordersStyle">
+            <summary>
+            Represents a table borders style
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.BottomCenterCorner">
+            <summary>
+            Gets or sets the bottom-center corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.BottomLeftCorner">
+            <summary>
+            Gets or sets the bottom-left corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Bottom">
+            <summary>
+            Gets or sets the bottom
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.BottomRightCorner">
+            <summary>
+            Gets or sets the bottom-right corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Center">
+            <summary>
+            Gets or sets the center
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Left">
+            <summary>
+            Gets or sets the left
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.MiddleCenterCorner">
+            <summary>
+            Gets or sets the middle-center corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Middle">
+            <summary>
+            Gets or sets the middle
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.MiddleLeftCorner">
+            <summary>
+            Gets or sets the middle-left corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.MiddleRightCorner">
+            <summary>
+            Gets or sets the middle-right corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Right">
+            <summary>
+            Gets or sets the right
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.Top">
+            <summary>
+            Gets or sets the top
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.TopCenterCorner">
+            <summary>
+            Gets or sets the top-center corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.TopLeftCorner">
+            <summary>
+            Gets or sets the top-left corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.TopRightCorner">
+            <summary>
+            Gets or sets the top-right corner
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.UpperColumnSpan">
+            <summary>
+            Gets or sets the upper column span
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.LowerColumnSpan">
+            <summary>
+            Gets or sets the lower column span
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.LeftWidth">
+            <summary>
+            Gets or sets the left width
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.HorizontalWidth">
+            <summary>
+            Gets or sets the horizontal width
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.CenterWidth">
+            <summary>
+            Gets or sets the center width
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableBordersStyle.RightWidth">
+            <summary>
+            Gets or sets the right width
+            </summary>
+        </member>
+        <member name="M:TextTableFormatter.TableBordersStyle.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.Cell">
+            <summary>
+            Represents a table cell
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.Cell.Content">
+            <summary>
+            Gets the cell content
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.Cell.Style">
+            <summary>
+            Gets the cell style
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.Cell.ColumnSpan">
+            <summary>
+            Gets the cell column span
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.CellTextTrimmingStyle">
+            <summary>
+            Represents a cell content trimming style
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellTextTrimmingStyle.Crop">
+            <summary>
+            Crop the text
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellTextTrimmingStyle.Dots">
+            <summary>
+            Trim text with dots
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.CellHorizontalAlignment">
+            <summary>
+            Represents the cell horizontal alignment
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellHorizontalAlignment.Left">
+            <summary>
+            Left horizontal alignment
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellHorizontalAlignment.Center">
+            <summary>
+            Center horizontal alignment
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellHorizontalAlignment.Right">
+            <summary>
+            Right horizontal alignment
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.CellNullStyle">
+            <summary>
+            Represents the cell null text style
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellNullStyle.EmptyString">
+            <summary>
+            The empty string
+            </summary>
+        </member>
+        <member name="F:TextTableFormatter.CellNullStyle.NullText">
+            <summary>
+            The null text: [null]
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.CellStyle">
+            <summary>
+            Represents a cell style
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.CellStyle.HorizontalAlignment">
+            <summary>
+            Gets or sets the cell horizontal alignment
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.CellStyle.TextTrimmingStyle">
+            <summary>
+            Gets or sets the cell abbreviation style
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.CellStyle.NullStyle">
+            <summary>
+            Gets or sets the cell null style
+            </summary>
+        </member>
+        <member name="M:TextTableFormatter.CellStyle.#ctor">
+            <summary>
+            Initialize a new instance of CellStyle class
+            </summary>
+        </member>
+        <member name="M:TextTableFormatter.CellStyle.#ctor(TextTableFormatter.CellHorizontalAlignment)">
+            <summary>
+            Initialize a new instance of CellStyle class
+            </summary>
+            <param name="horizontalAlignment">The cell horizontal alignment</param>
+        </member>
+        <member name="M:TextTableFormatter.CellStyle.#ctor(TextTableFormatter.CellHorizontalAlignment,TextTableFormatter.CellTextTrimmingStyle)">
+            <summary>
+            Initialize a new instance of CellStyle class
+            </summary>
+            <param name="horizontalAlignment">The cell horizontal alignment</param>
+            <param name="textTrimmingStyle">The cell text trimming style</param>
+        </member>
+        <member name="M:TextTableFormatter.CellStyle.#ctor(TextTableFormatter.CellHorizontalAlignment,TextTableFormatter.CellTextTrimmingStyle,TextTableFormatter.CellNullStyle)">
+            <summary>
+            Initialize a new instance of CellStyle class
+            </summary>
+            <param name="horizontalAlignment">The cell horizontal alignment</param>
+            <param name="textTrimmingStyle">The cell text trimming style</param>
+            <param name="nullStyle">The cell null style</param>
+        </member>
+        <member name="M:TextTableFormatter.CellStyle.#ctor(TextTableFormatter.CellHorizontalAlignment,TextTableFormatter.CellTextTrimmingStyle,TextTableFormatter.CellNullStyle,System.Boolean)">
+            <summary>
+            Initialize a new instance of CellStyle class
+            </summary>
+            <param name="horizontalAlignment">The cell horizontal alignment</param>
+            <param name="textTrimmingStyle">The cell text trimming style</param>
+            <param name="nullStyle">The cell null style</param>
+            <param name="removeTerminalFormats">True: terminal formats will be removed</param>
+        </member>
+        <member name="T:TextTableFormatter.TableVisibleBorders">
+            <summary>
+            Represents which table borders are visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsBottomBorderVisible">
+            <summary>
+            Gets or sets if the table bottom border is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsCenterSeparatorVisible">
+            <summary>
+            Gets or sets if the table center separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsFooterSeparatorVisible">
+            <summary>
+            Gets or sets if the table footer separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsHeaderSeparatorVisible">
+            <summary>
+            Gets or sets if the table header separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsLeftBorderVisible">
+            <summary>
+            Gets or sets if the table left border is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsLeftSeparatorVisible">
+            <summary>
+            Gets or sets if the table left separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsMiddleSeparatorVisible">
+            <summary>
+            Gets or sets if the table middle separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsRightBorderVisible">
+            <summary>
+            Gets or sets if the table right border is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsRightSeparatorVisible">
+            <summary>
+            Gets or sets if the table right separator is visible
+            </summary>
+        </member>
+        <member name="P:TextTableFormatter.TableVisibleBorders.IsTopBorderVisible">
+            <summary>
+            Gets or sets if the table top border is visible
+            </summary>
+        </member>
+        <member name="M:TextTableFormatter.TableVisibleBorders.#ctor">
+            <summary>
+            Initializes a new instance of TableVisibleBorders class
+            </summary>
+        </member>
+        <member name="T:TextTableFormatter.TextTable">
+            <summary>
+            Represents the text table
+            </summary>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32,TextTableFormatter.TableBordersStyle)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+            <param name="borderStyle">The table border style</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32,TextTableFormatter.TableBordersStyle,TextTableFormatter.TableVisibleBorders)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+            <param name="borderStyle">The table border style</param>
+            <param name="visibleBorders">The table visible borders</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32,TextTableFormatter.TableBordersStyle,TextTableFormatter.TableVisibleBorders,System.Boolean)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+            <param name="borderStyle">The table border style</param>
+            <param name="visibleBorders">The table visible borders</param>
+            <param name="escapeXml">true if xml content must be escaped</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32,TextTableFormatter.TableBordersStyle,TextTableFormatter.TableVisibleBorders,System.Boolean,System.Int32)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+            <param name="borderStyle">The table border style</param>
+            <param name="visibleBorders">The table visible borders</param>
+            <param name="escapeXml">true if xml content must be escaped</param>
+            <param name="leftMargin">The table left margin</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.#ctor(System.Int32,TextTableFormatter.TableBordersStyle,TextTableFormatter.TableVisibleBorders,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of TextTable class
+            </summary>
+            <param name="columnsCount">The columns count</param>
+            <param name="borderStyle">The table border style</param>
+            <param name="visibleBorders">The table visible borders</param>
+            <param name="escapeXml">true if xml content must be escaped</param>
+            <param name="prompt">The table prompt string</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.AddCell(System.String)">
+            <summary>
+            Adds a cell with the given content
+            </summary>
+            <param name="content">The cell content</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.AddCell(System.String,System.Int32)">
+            <summary>
+            Adds a cell with the given content and column span
+            </summary>
+            <param name="content">The cell content</param>
+            <param name="columnSpan">The cell column span</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.AddCell(System.String,TextTableFormatter.CellStyle,System.Int32)">
+            <summary>
+            Adds a cell with a given content, a style and a column span.
+            The cell will be arranged in a new row if necessary
+            </summary>
+            <param name="content">The cell content</param>
+            <param name="style">The cell style</param>
+            <param name="columnSpan">The cell column span</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.GetCell(System.Int32,System.Int32)">
+            <summary>
+            Gets the cell corresponding to the given row index and column index
+            </summary>
+            <param name="rowIndex">The table row index</param>
+            <param name="columnIndex">The table column index</param>
+            <returns></returns>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.SetColumnWidthRange(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the column width range (min - max)
+            </summary>
+            <param name="columnIndex">The column index</param>
+            <param name="minWidth">The column min width</param>
+            <param name="maxWidth">The column max width</param>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.Render">
+            <summary>
+            Renders the table as a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TextTableFormatter.TextTable.RenderAsStringArray">
+            <summary>
+            Renders the table as a string array (each array element is a row)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:TextTableFormatter.TableStyle.BorderStyle">
+            <summary>
+            Gets the table border style
+            </summary>
+        </member>
+    </members>
+</doc>

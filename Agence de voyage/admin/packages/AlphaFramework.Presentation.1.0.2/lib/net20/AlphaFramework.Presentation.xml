@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AlphaFramework.Presentation</name>
+    </assembly>
+    <members>
+        <member name="T:AlphaFramework.Presentation.PresenterBase`2">
+            <summary>
+            Uses the <see cref="F:AlphaFramework.Presentation.PresenterBase`2.Engine"/> to present an <see cref="T:AlphaFramework.World.IUniverse"/> game world.
+            </summary>
+            <typeparam name="TUniverse">The type of <see cref="T:AlphaFramework.World.IUniverse"/> to present.</typeparam>
+            <typeparam name="TCoordinates">Data type for storing position coordinates of objects in the game world.</typeparam>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.#ctor(OmegaEngine.Engine,`0)">
+            <summary>
+            Creates a new presenter.
+            </summary>
+            <param name="engine">The engine to use for rendering.</param>
+            <param name="universe">The game world to present.</param>
+        </member>
+        <member name="F:AlphaFramework.Presentation.PresenterBase`2.RenderablesSync">
+            <summary>
+            Maps between <see cref="P:AlphaFramework.World.UniverseBase`1.Positionables"/> and <see cref="P:OmegaEngine.Graphics.Scene.Positionables"/>.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.Presentation.PresenterBase`2.LightsSync">
+            <summary>
+            Maps between <see cref="P:AlphaFramework.World.UniverseBase`1.Positionables"/> and <see cref="P:OmegaEngine.Graphics.Scene.Lights"/>.
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.Presentation.PresenterBase`2.Engine">
+            <summary>
+            The <see cref="F:AlphaFramework.Presentation.PresenterBase`2.Engine"/> reference to use for rendering operations
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.Presentation.PresenterBase`2.View">
+            <summary>
+            The engine view used to display the <see cref="F:AlphaFramework.Presentation.PresenterBase`2.Scene"/>
+            </summary>
+        </member>
+        <member name="F:AlphaFramework.Presentation.PresenterBase`2.Scene">
+            <summary>
+            The engine scene containing the graphical representations of <see cref="T:AlphaFramework.World.Positionables.Positionable`1"/>s
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.Presentation.PresenterBase`2.Universe">
+            <summary>
+            The game world to present.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.Presentation.PresenterBase`2.Initialized">
+            <summary>
+            Was <see cref="M:AlphaFramework.Presentation.PresenterBase`2.Initialize"/> already called?
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.Initialize">
+            <summary>
+            Generate <see cref="T:OmegaEngine.Graphics.Renderables.Terrain"/> and <see cref="T:OmegaEngine.Graphics.Renderables.Renderable"/>s from <see cref="P:AlphaFramework.World.UniverseBase`1.Positionables"/> and keeps everything in sync using events
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException">A required <see cref="T:OmegaEngine.Assets.Asset"/> file could not be found.</exception>
+            <exception cref="T:System.IO.IOException">There was an error reading an <see cref="T:OmegaEngine.Assets.Asset"/> file.</exception>
+            <exception cref="T:System.IO.InvalidDataException">An <see cref="T:OmegaEngine.Assets.Asset"/> file contains invalid data.</exception>
+            <remarks>Should be called before <see cref="M:AlphaFramework.Presentation.PresenterBase`2.HookIn"/> is used</remarks>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.RegisterRenderablesSync">
+            <summary>
+            Hook to configure <see cref="F:AlphaFramework.Presentation.PresenterBase`2.RenderablesSync"/> and <see cref="F:AlphaFramework.Presentation.PresenterBase`2.LightsSync"/>.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.HookIn">
+            <summary>
+            Hooks the <see cref="P:AlphaFramework.Presentation.PresenterBase`2.View"/> into <see cref="P:OmegaEngine.Engine.Views"/>
+            </summary>
+            <remarks>Will internally call <see cref="M:AlphaFramework.Presentation.PresenterBase`2.Initialize"/> first, if you didn't</remarks>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.HookOut">
+            <summary>
+            Hooks the <see cref="P:AlphaFramework.Presentation.PresenterBase`2.View"/> out of <see cref="P:OmegaEngine.Engine.Views"/>
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.DimDown">
+            <summary>
+            Dims in the screen down.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.DimUp">
+            <summary>
+            Dims in the screen back up.
+            </summary>
+        </member>
+        <member name="P:AlphaFramework.Presentation.PresenterBase`2.Disposed">
+            <summary>
+            Was this presenter already disposed?
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.Dispose">
+            <summary>
+            Removes the <see cref="P:AlphaFramework.Presentation.PresenterBase`2.Universe"/> hooks setup by <see cref="M:AlphaFramework.Presentation.PresenterBase`2.Initialize"/> and disposes all created <see cref="P:AlphaFramework.Presentation.PresenterBase`2.View"/>s, <see cref="F:AlphaFramework.Presentation.PresenterBase`2.Scene"/>s, <see cref="T:OmegaEngine.Graphics.Renderables.PositionableRenderable"/>s, etc.
+            </summary>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.Finalize">
+            <inheritdoc/>
+        </member>
+        <member name="M:AlphaFramework.Presentation.PresenterBase`2.Dispose(System.Boolean)">
+            <summary>
+            To be called by <see cref="M:System.IDisposable.Dispose"/> and the object destructor.
+            </summary>
+            <param name="disposing"><c>true</c> if called manually and not by the garbage collector.</param>
+        </member>
+    </members>
+</doc>
